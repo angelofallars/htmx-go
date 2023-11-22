@@ -11,6 +11,9 @@ type Response struct {
 	// The HTMX headers that will be written to a response.
 	headers map[string]string
 
+	// The HTTP status code to use
+	statusCode int
+
 	// JSON marshalling might fail, so we need to keep track of this error
 	// to return when `Write` is called
 	locationWithContextErr []error
@@ -46,7 +49,7 @@ func (r Response) Write(w http.ResponseWriter) error {
 
 	header := w.Header()
 	for k, v := range r.headers {
-		header.Set(k, v)
+		header.Add(k, v)
 	}
 
 	return nil
@@ -67,6 +70,12 @@ func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c temp
 	err := r.Write(w)
 	if err != nil {
 		return err
+	}
+
+	// Status code needs to be written after the other headers
+	// so the other headers can be written
+	if r.statusCode != 0 {
+		w.WriteHeader(r.statusCode)
 	}
 
 	err = c.Render(ctx, w)

@@ -63,6 +63,19 @@ const (
 	SwapNone swapValue = "none"
 )
 
+// StatusCode sets the HTTP response header of this response.
+//
+// If StatusCode is not called, the default status code will be 200 OK.
+func (r Response) StatusCode(statusCode int) Response {
+	r.setStatusCode(statusCode)
+	return r
+}
+
+// Internal method for StatusCode
+func (r *Response) setStatusCode(statusCode int) {
+	r.statusCode = statusCode
+}
+
 // Location allows you to do a client-side redirect that does not do a full page reload.
 //
 // If you want to redirect to a specific target on the page rather than the default of document.body,
