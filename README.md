@@ -137,6 +137,44 @@ func(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+## Header names
+
+If you need to work with HTMX headers directly, htmx-go provides constant values for all 
+HTTP header field names of HTMX so you don't have to write them yourself. This mitigates the risk of writing
+header names with typos.
+
+```go
+// Request headers
+const (
+	HeaderBoosted               = "HX-Boosted"
+	HeaderCurrentURL            = "HX-Current-URL"
+	HeaderHistoryRestoreRequest = "HX-History-Restore-Request"
+	HeaderPrompt                = "HX-Prompt"
+	HeaderRequest               = "Hx-Request"
+	HeaderTarget                = "HX-Target"
+	HeaderTriggerName           = "Hx-Trigger-Name"
+)
+
+// Common headers
+const (
+	HeaderTrigger = "HX-Trigger"
+)
+
+// Response headers
+const (
+	HeaderLocation           = "HX-Location"
+	HeaderPushURL            = "HX-Push-Url"
+	HeaderRedirect           = "HX-Redirect"
+	HeaderRefresh            = "HX-Refresh"
+	HeaderReplaceUrl         = "HX-Replace-Url"
+	HeaderReswap             = "HX-Reswap"
+	HeaderRetarget           = "HX-Retarget"
+	HeaderReselect           = "HX-Reselect"
+	HeaderTriggerAfterSettle = "HX-Trigger-After-Settle"
+	HeaderTriggerAfterSwap   = "HX-Trigger-After-Swap"
+)
+```
+
 ## Compatibility
 
 This library is compatible with the standard `net/http` library, as well as other routers like Chi
