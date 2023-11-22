@@ -237,9 +237,7 @@ type (
 	}
 
 	// Unexported with a public constructor function for type safety reasons
-	trigger struct {
-		eventName string
-	}
+	trigger string
 	// Unexported with a public constructor function for type safety reasons
 	triggerWithValue struct {
 		eventName string
@@ -269,9 +267,7 @@ func (t triggerKeyValue) htmxTrigger() {}
 //
 //	HX-Trigger: myEvent
 func Trigger(eventName string) triggerer {
-	return trigger{
-		eventName: eventName,
-	}
+	return trigger(eventName)
 }
 
 // Example:
