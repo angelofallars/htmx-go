@@ -17,6 +17,9 @@ type Response struct {
 }
 
 // NewResponse returns a new HTMX response header writer.
+//
+// Any subsequent method calls that write to the same header
+// will overwrite the last set header value.
 func NewResponse() Response {
 	return Response{
 		headers: make(map[string]string),

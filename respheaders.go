@@ -23,27 +23,43 @@ func (s swapValue) swap() string {
 
 const (
 	// Replace the inner html of the target element.
+	//
+	// Valid value for Response.Reswap().
 	SwapInnerHTML swapValue = "innerHTML"
 
 	// Replace the entire target element with the response.
+	//
+	// Valid value for Response.Reswap().
 	SwapOuterHTML swapValue = "outerHTML"
 
 	// Insert the response before the target element.
+	//
+	// Valid value for Response.Reswap().
 	SwapBeforeBegin swapValue = "beforebegin"
 
 	// Insert the response before the first child of the target element.
+	//
+	// Valid value for Response.Reswap().
 	SwapAfterBegin swapValue = "afterbegin"
 
 	// Insert the response after the last child of the target element.
+	//
+	// Valid value for Response.Reswap().
 	SwapBeforeEnd swapValue = "beforeend"
 
 	// Insert the response after the target element.
+	//
+	// Valid value for Response.Reswap().
 	SwapAfterEnd swapValue = "afterend"
 
 	// Deletes the target element regardless of the response.
+	//
+	// Valid value for Response.Reswap().
 	SwapDelete swapValue = "delete"
 
 	// Does not append content from response (out of band items will still be processed).
+	//
+	// Valid value for Response.Reswap().
 	SwapNone swapValue = "none"
 )
 
@@ -131,6 +147,8 @@ func (r Response) LocationWithContext(path string, ctx LocationContext) Response
 
 // PushURL pushes a new URL into the browser location history.
 //
+// Sets the same header as Response.PreventPushURL(), overwriting previous set headers.
+//
 // Sets the 'HX-Push-Url' header.
 func (r Response) PushURL(url string) Response {
 	r.headers[HeaderPushURL] = url
@@ -138,6 +156,8 @@ func (r Response) PushURL(url string) Response {
 }
 
 // PreventPushURL prevents the browser’s history from being updated.
+//
+// Sets the same header as Response.PushURL(), overwriting previous set headers.
 //
 // Sets the 'HX-Push-Url' header.
 func (r Response) PreventPushURL() Response {
@@ -167,6 +187,8 @@ func (r Response) Refresh(shouldRefresh bool) Response {
 
 // ReplaceURL replaces the current URL in the browser location history.
 //
+// Sets the same header as Response.PreventReplaceURL(), overwriting previous set headers.
+//
 // Sets the 'HX-Replace-Url' header.
 func (r Response) ReplaceURL(url string) Response {
 	r.headers[HeaderReplaceUrl] = url
@@ -174,6 +196,8 @@ func (r Response) ReplaceURL(url string) Response {
 }
 
 // PreventReplaceURL prevents the browser’s current URL from being updated.
+//
+// Sets the same header as Response.ReplaceURL(), overwriting previous set headers.
 //
 // Sets the 'HX-Replace-Url' header to 'false'.
 func (r Response) PreventReplaceURL() Response {
@@ -212,18 +236,20 @@ type (
 		htmxTrigger()
 	}
 
-	// Example output: HX-Trigger: myEvent
+	// Example:
+	//
+	//    TriggerWithValue("myEvent")
+	//
+	// Output header:
+	//
+	//   HX-Trigger: myEvent
 	Trigger string
 
-	// Example output: HX-Trigger: {"showMessage":"Here Is A Message"}
-	//
 	// Unexported with a public constructor function for type safety reasons
 	triggerWithValue struct {
 		eventName string
 		value     string
 	}
-	// Example output: HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
-	//
 	// Unexported with a public constructor function for type safety reasons
 	triggerKeyValue struct {
 		eventName string
@@ -240,8 +266,13 @@ func (t triggerWithValue) htmxTrigger() {}
 // TriggerKeyValue satisfies htmx.trigger
 func (t triggerKeyValue) htmxTrigger() {}
 
-// Example output: HX-Trigger: {"showMessage":"Here Is A Message"}
-func TriggerWithValue(key string, value string) triggerWithValue {
+// Example:
+//
+//	TriggerWithValue("showMessage", "Here Is A Message")
+//
+// Output header:
+//
+//	HX-Trigger: {"showMessage":"Here Is A Message"}
 func TriggerWithValue(eventName string, value string) triggerWithValue {
 	return triggerWithValue{
 		eventName: eventName,
@@ -249,8 +280,16 @@ func TriggerWithValue(eventName string, value string) triggerWithValue {
 	}
 }
 
-// Example output: HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
-func TriggerKeyValue(key string, value map[string]string) triggerKeyValue {
+// Example:
+//
+//	TriggerWithValue("showMessage", map[string]string{
+//	  "level": "info",
+//	  "message": "Here Is A Message",
+//	})
+//
+// Output header:
+//
+//	HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
 func TriggerKeyValue(eventName string, value map[string]string) triggerKeyValue {
 	return triggerKeyValue{
 		eventName: eventName,
@@ -258,19 +297,31 @@ func TriggerKeyValue(eventName string, value map[string]string) triggerKeyValue 
 	}
 }
 
-// AddTrigger adds a trigger for events as soon as the response is received.
+// AddTrigger adds a trigger for events that trigger as soon as the response is received.
+//
+// This can be called multiple times so you can add multiple triggers for different events.
+//
+// Sets the 'HX-Trigger' header.
 func (r Response) AddTrigger(trigger trigger) Response {
 	// TODO: AddTrigger
 	return r
 }
 
-// AddTriggerAfterSettle adds a trigger for events after the settling step.
+// AddTriggerAfterSettle adds a trigger for events that trigger after the settling step.
+//
+// This can be called multiple times so you can add multiple triggers for different events.
+//
+// Sets the 'HX-Trigger-After-Settle' header.
 func (r Response) AddTriggerAfterSettle(trigger trigger) Response {
 	// TODO: AddTriggerAfterSettle
 	return r
 }
 
-// AddTriggerAfterSwap adds a trigger for events after the swap step.
+// AddTriggerAfterSwap adds a trigger for events that trigger after the swap step.
+//
+// This can be called multiple times so you can add multiple triggers for different events.
+//
+// Sets the 'HX-Trigger-After-Swap' header.
 func (r Response) AddTriggerAfterSwap(trigger trigger) Response {
 	// TODO: AddTriggerAfterSwap
 	return r
