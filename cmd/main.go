@@ -7,7 +7,13 @@ import (
 	"github.com/angelofallars/htmx-go"
 )
 
-func myHandler(w http.ResponseWriter, r *http.Response) {
+func myHandler(w http.ResponseWriter, r *http.Request) {
+	if !htmx.IsHTMXRequest(r) {
+		w.Write([]byte("only HTMX requests allowed"))
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	writer := htmx.NewResponse().
 		Reswap(htmx.SwapBeforeBegin).
 		Redirect("/cats").
