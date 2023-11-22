@@ -1,4 +1,4 @@
-# htmx-go
+# htmx-go (WIP)
 
 A **type-safe** library for working with [HTMX](https://htmx.org/) in Go. Less time fiddling with HTTP
 headers, more time developing awesome Hypermedia-driven applications.
