@@ -1,0 +1,6 @@
+# Binaries
+/bin/
+__debug*
+
+# Temporary
+tmp/
