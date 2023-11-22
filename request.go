@@ -1,6 +1,8 @@
 package htmx
 
-import "net/http"
+import (
+	"net/http"
+)
 
 // IsHTMXRequest returns true if the given request
 // was sent by HTMX.
@@ -30,7 +32,7 @@ func IsHistoryRestoreRequest(r *http.Request) bool {
 //
 // If header 'HX-Current-URL' is not found, returns false on the returned bool.
 func GetCurrentURL(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderCurrentURL]; !ok {
+	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderCurrentURL)]; !ok {
 		return "", false
 	}
 	return r.Header.Get(HeaderCurrentURL), true
@@ -40,7 +42,7 @@ func GetCurrentURL(r *http.Request) (string, bool) {
 //
 // If header 'HX-Prompt' is not found, returns false on the returned bool.
 func GetPrompt(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderPrompt]; !ok {
+	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderPrompt)]; !ok {
 		return "", false
 	}
 	return r.Header.Get(HeaderPrompt), true
@@ -50,7 +52,7 @@ func GetPrompt(r *http.Request) (string, bool) {
 //
 // If header 'HX-Target' is not found, returns false on the returned bool.
 func GetTarget(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderTarget]; !ok {
+	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderTarget)]; !ok {
 		return "", false
 	}
 	return r.Header.Get(HeaderTarget), true
@@ -60,7 +62,7 @@ func GetTarget(r *http.Request) (string, bool) {
 //
 // If header 'HX-Trigger-Name' is not found, returns false on the returned bool.
 func GetTriggerName(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderTriggerName]; !ok {
+	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderTriggerName)]; !ok {
 		return "", false
 	}
 	return r.Header.Get(HeaderTriggerName), true
@@ -70,7 +72,7 @@ func GetTriggerName(r *http.Request) (string, bool) {
 //
 // If header 'HX-Trigger' is not found, returns false on the returned bool.
 func GetTrigger(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderTrigger]; !ok {
+	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderTrigger)]; !ok {
 		return "", false
 	}
 	return r.Header.Get(HeaderTrigger), true
