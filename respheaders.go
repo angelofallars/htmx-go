@@ -297,6 +297,8 @@ func TriggerKeyValue(eventName string, value map[string]string) triggerKeyValue 
 	}
 }
 
+// **( TODO function, not working yet )**
+//
 // AddTrigger adds a trigger for events that trigger as soon as the response is received.
 //
 // This can be called multiple times so you can add multiple triggers for different events.
@@ -307,6 +309,8 @@ func (r Response) AddTrigger(trigger trigger) Response {
 	return r
 }
 
+// **( TODO function, not working yet )**
+//
 // AddTriggerAfterSettle adds a trigger for events that trigger after the settling step.
 //
 // This can be called multiple times so you can add multiple triggers for different events.
@@ -317,6 +321,8 @@ func (r Response) AddTriggerAfterSettle(trigger trigger) Response {
 	return r
 }
 
+// **( TODO function, not working yet )**
+//
 // AddTriggerAfterSwap adds a trigger for events that trigger after the swap step.
 //
 // This can be called multiple times so you can add multiple triggers for different events.
