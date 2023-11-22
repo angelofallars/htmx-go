@@ -50,28 +50,28 @@ func GetPrompt(r *http.Request) (string, bool) {
 //
 // If header 'HX-Target' is not found, returns false on the returned bool.
 func GetTarget(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderPrompt]; !ok {
+	if _, ok := r.Header[HeaderTarget]; !ok {
 		return "", false
 	}
-	return r.Header.Get(HeaderPrompt), true
+	return r.Header.Get(HeaderTarget), true
 }
 
 // GetTriggerName returns the 'name' of the triggered element if it exists from a given request.
 //
 // If header 'HX-Trigger-Name' is not found, returns false on the returned bool.
 func GetTriggerName(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderPrompt]; !ok {
+	if _, ok := r.Header[HeaderTriggerName]; !ok {
 		return "", false
 	}
-	return r.Header.Get(HeaderPrompt), true
+	return r.Header.Get(HeaderTriggerName), true
 }
 
 // GetTrigger returns the ID of the triggered element if it exists from a given request.
 //
 // If header 'HX-Trigger' is not found, returns false on the returned bool.
 func GetTrigger(r *http.Request) (string, bool) {
-	if _, ok := r.Header[HeaderPrompt]; !ok {
+	if _, ok := r.Header[HeaderTrigger]; !ok {
 		return "", false
 	}
-	return r.Header.Get(HeaderPrompt), true
+	return r.Header.Get(HeaderTrigger), true
 }
