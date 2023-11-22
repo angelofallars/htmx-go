@@ -97,11 +97,14 @@ func(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-### Cloning 
+### Code organization
 
 HTMX response writers can be declared outside of functions with `var` so you can reuse them in several
-places. However, you need to make sure to always use the `.Clone()` method if you're adding
-additional headers to the response writers to prevent accidentally modifying the global response writer.
+places. 
+
+> [!CAUTION]
+> If you're adding additional headers to a global response writer, always use the `.Clone()` method
+> to avoid accidentally modifying the global response writer.
 
 ```go
 var deleter = htmx.NewResponse().
