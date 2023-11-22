@@ -21,7 +21,7 @@ func (s swapValue) swap() string {
 	return string(s)
 }
 
-var (
+const (
 	// Replace the inner html of the target element.
 	SwapInnerHTML swapValue = "innerHTML"
 
