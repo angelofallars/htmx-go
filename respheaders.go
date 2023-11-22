@@ -219,15 +219,15 @@ type (
 	//
 	// Unexported with a public constructor function for type safety reasons
 	triggerWithValue struct {
-		key   string
-		value string
+		eventName string
+		value     string
 	}
 	// Example output: HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
 	//
 	// Unexported with a public constructor function for type safety reasons
 	triggerKeyValue struct {
-		key   string
-		value map[string]string
+		eventName string
+		value     map[string]string
 	}
 )
 
@@ -242,17 +242,19 @@ func (t triggerKeyValue) htmxTrigger() {}
 
 // Example output: HX-Trigger: {"showMessage":"Here Is A Message"}
 func TriggerWithValue(key string, value string) triggerWithValue {
+func TriggerWithValue(eventName string, value string) triggerWithValue {
 	return triggerWithValue{
-		key:   key,
-		value: value,
+		eventName: eventName,
+		value:     value,
 	}
 }
 
 // Example output: HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
 func TriggerKeyValue(key string, value map[string]string) triggerKeyValue {
+func TriggerKeyValue(eventName string, value map[string]string) triggerKeyValue {
 	return triggerKeyValue{
-		key:   key,
-		value: value,
+		eventName: eventName,
+		value:     value,
 	}
 }
 
