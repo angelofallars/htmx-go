@@ -231,20 +231,15 @@ func (r Response) Reselect(selector string) Response {
 }
 
 type (
-	// Just a bare interface for restricting the trigger types
-	trigger interface {
+	// Just a bare interface for restricting the triggerer types
+	triggerer interface {
 		htmxTrigger()
 	}
 
-	// Example:
-	//
-	//    TriggerWithValue("myEvent")
-	//
-	// Output header:
-	//
-	//   HX-Trigger: myEvent
-	Trigger string
-
+	// Unexported with a public constructor function for type safety reasons
+	trigger struct {
+		eventName string
+	}
 	// Unexported with a public constructor function for type safety reasons
 	triggerWithValue struct {
 		eventName string
@@ -258,13 +253,26 @@ type (
 )
 
 // Trigger satisfies htmx.trigger
-func (t Trigger) htmxTrigger() {}
+func (t trigger) htmxTrigger() {}
 
 // TriggerWithValue satisfies htmx.trigger
 func (t triggerWithValue) htmxTrigger() {}
 
 // TriggerKeyValue satisfies htmx.trigger
 func (t triggerKeyValue) htmxTrigger() {}
+
+// Example:
+//
+//	TriggerWithValue("myEvent")
+//
+// Output header:
+//
+//	HX-Trigger: myEvent
+func Trigger(eventName string) triggerer {
+	return trigger{
+		eventName: eventName,
+	}
+}
 
 // Example:
 //
@@ -304,7 +312,7 @@ func TriggerKeyValue(eventName string, value map[string]string) triggerKeyValue 
 // This can be called multiple times so you can add multiple triggers for different events.
 //
 // Sets the 'HX-Trigger' header.
-func (r Response) AddTrigger(trigger trigger) Response {
+func (r Response) AddTrigger(trigger triggerer) Response {
 	// TODO: AddTrigger
 	return r
 }
@@ -316,7 +324,7 @@ func (r Response) AddTrigger(trigger trigger) Response {
 // This can be called multiple times so you can add multiple triggers for different events.
 //
 // Sets the 'HX-Trigger-After-Settle' header.
-func (r Response) AddTriggerAfterSettle(trigger trigger) Response {
+func (r Response) AddTriggerAfterSettle(trigger triggerer) Response {
 	// TODO: AddTriggerAfterSettle
 	return r
 }
@@ -328,7 +336,7 @@ func (r Response) AddTriggerAfterSettle(trigger trigger) Response {
 // This can be called multiple times so you can add multiple triggers for different events.
 //
 // Sets the 'HX-Trigger-After-Swap' header.
-func (r Response) AddTriggerAfterSwap(trigger trigger) Response {
+func (r Response) AddTriggerAfterSwap(trigger triggerer) Response {
 	// TODO: AddTriggerAfterSwap
 	return r
 }
