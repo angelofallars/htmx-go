@@ -25,6 +25,20 @@ func(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+## Installation
+
+Use go get.
+
+```sh
+go get -u github.com/angelofallars/htmx-go
+```
+
+Then import htmx-go:
+
+```go
+import "github.com/angelofallars/htmx-go"
+```
+
 ## HTMX requests
 
 ### Check request origin
