@@ -9,7 +9,7 @@ import (
 // Response contains HTMX headers to write to a response.
 type Response struct {
 	// The HTMX headers that will be written to a response.
-	Headers map[string]string
+	headers map[string]string
 
 	// JSON marshalling might fail, so we need to keep track of this error
 	// to return when `Write` is called
@@ -19,7 +19,7 @@ type Response struct {
 // NewResponse returns a new HTMX response header writer.
 func NewResponse() Response {
 	return Response{
-		Headers: make(map[string]string),
+		headers: make(map[string]string),
 	}
 }
 
@@ -28,8 +28,8 @@ func NewResponse() Response {
 func (r Response) Clone() Response {
 	n := NewResponse()
 
-	for k, v := range r.Headers {
-		n.Headers[k] = v
+	for k, v := range r.headers {
+		n.headers[k] = v
 	}
 
 	return n
@@ -42,11 +42,21 @@ func (r Response) Write(w http.ResponseWriter) error {
 	}
 
 	header := w.Header()
-	for k, v := range r.Headers {
+	for k, v := range r.headers {
 		header.Set(k, v)
 	}
 
 	return nil
+}
+
+// Headers returns a copy of the headers. Any modifications to the
+// returned headers will not affect the headers in this struct.
+func (r Response) Headers() map[string]string {
+	m := make(map[string]string)
+	for k, v := range r.headers {
+		m[k] = v
+	}
+	return m
 }
 
 // RenderTempl renders a Templ component along with the defined HTMX headers.

@@ -54,7 +54,7 @@ var (
 //
 // Sets the 'HX-Location' header.
 func (r Response) Location(path string) Response {
-	r.Headers[HeaderLocation] = path
+	r.headers[HeaderLocation] = path
 	return r
 }
 
@@ -124,7 +124,7 @@ func (r Response) LocationWithContext(path string, ctx LocationContext) Response
 		return r
 	}
 
-	r.Headers[HeaderLocation] = string(bytes)
+	r.headers[HeaderLocation] = string(bytes)
 
 	return r
 }
@@ -133,7 +133,7 @@ func (r Response) LocationWithContext(path string, ctx LocationContext) Response
 //
 // Sets the 'HX-Push-Url' header.
 func (r Response) PushURL(url string) Response {
-	r.Headers[HeaderPushURL] = url
+	r.headers[HeaderPushURL] = url
 	return r
 }
 
@@ -141,7 +141,7 @@ func (r Response) PushURL(url string) Response {
 //
 // Sets the 'HX-Push-Url' header.
 func (r Response) PreventPushURL() Response {
-	r.Headers[HeaderPushURL] = falseString
+	r.headers[HeaderPushURL] = falseString
 	return r
 }
 
@@ -149,7 +149,7 @@ func (r Response) PreventPushURL() Response {
 //
 // Sets the 'HX-Redirect' header.
 func (r Response) Redirect(path string) Response {
-	r.Headers[HeaderRedirect] = path
+	r.headers[HeaderRedirect] = path
 	return r
 }
 
@@ -158,9 +158,9 @@ func (r Response) Redirect(path string) Response {
 // Sets the 'HX-Refresh' header.
 func (r Response) Refresh(shouldRefresh bool) Response {
 	if shouldRefresh {
-		r.Headers[HeaderRefresh] = trueString
+		r.headers[HeaderRefresh] = trueString
 	} else {
-		r.Headers[HeaderRefresh] = falseString
+		r.headers[HeaderRefresh] = falseString
 	}
 	return r
 }
@@ -169,7 +169,7 @@ func (r Response) Refresh(shouldRefresh bool) Response {
 //
 // Sets the 'HX-Replace-Url' header.
 func (r Response) ReplaceURL(url string) Response {
-	r.Headers[HeaderReplaceUrl] = url
+	r.headers[HeaderReplaceUrl] = url
 	return r
 }
 
@@ -177,7 +177,7 @@ func (r Response) ReplaceURL(url string) Response {
 //
 // Sets the 'HX-Replace-Url' header to 'false'.
 func (r Response) PreventReplaceURL() Response {
-	r.Headers[HeaderReplaceUrl] = falseString
+	r.headers[HeaderReplaceUrl] = falseString
 	return r
 }
 
@@ -185,7 +185,7 @@ func (r Response) PreventReplaceURL() Response {
 //
 // Sets the 'HX-Reswap' header.
 func (r Response) Reswap(s swapper) Response {
-	r.Headers[HeaderReswap] = s.swap()
+	r.headers[HeaderReswap] = s.swap()
 	return r
 }
 
@@ -193,7 +193,7 @@ func (r Response) Reswap(s swapper) Response {
 //
 // Sets the 'HX-Retarget' header.
 func (r Response) Retarget(selector string) Response {
-	r.Headers[HeaderRetarget] = selector
+	r.headers[HeaderRetarget] = selector
 	return r
 }
 
@@ -202,7 +202,7 @@ func (r Response) Retarget(selector string) Response {
 //
 // Sets the 'HX-Reselect' header.
 func (r Response) Reselect(selector string) Response {
-	r.Headers[HeaderReselect] = selector
+	r.headers[HeaderReselect] = selector
 	return r
 }
 
