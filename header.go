@@ -1,3 +1,4 @@
+// Package htmx provides utilities to build HTMX-powered web applications.
 package htmx
 
 // Request headers

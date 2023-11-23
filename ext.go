@@ -1,5 +1,3 @@
-// ext.go provides this library with interfaces
-// for integrations with popular Go libraries.
 package htmx
 
 import (
