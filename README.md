@@ -99,6 +99,44 @@ func(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+### Triggers
+
+Add triggers without dealing with serializing the trigger headers.
+
+Define event triggers:
+
+- `htmx.Trigger(eventName string)` - A trigger with no details.
+- `htmx.TriggerValue(eventName string, detail string)` - A trigger with one detail.
+- `htmx.TriggerKeyValue(eventName string, details map[string]string)` - A trigger with key/value
+details.
+
+Set trigger headers using the triggers above:
+
+- `Response.AddTrigger(trigger ..EventTrigger)` - appends to the `HX-Trigger` header
+- `Response.AddTriggerAfterSettle(trigger ..EventTrigger)` - appends to the `HX-Trigger-After-Settle` header
+- `Response.AddTriggerAfterSwap(trigger ..EventTrigger)` - appends to the `HX-Trigger-After-Swap` header
+
+```go
+
+htmx.NewResponse().
+	AddTrigger(htmx.Trigger("myEvent"))
+// HX-Trigger: myEvent
+
+htmx.NewResponse().
+	AddTrigger(htmx.TriggerValue("showMessage", "Here Is A Message"))
+// HX-Trigger: {"showMessage":"Here Is A Message"}
+
+htmx.NewResponse().
+	AddTrigger(
+			htmx.TriggerValue("hello", "world"),
+			htmx.TriggerKeyValue("myEvent", map[string]string{
+				"level":   "info",
+				"message": "Here Is A Message",
+			}),
+  )
+// HX-Trigger: {"hello":"world","myEvent":{"level":"info","message":"Here is a Message"}}
+```
+
 ### Code organization
 
 HTMX response writers can be declared outside of functions with `var` so you can reuse them in several
