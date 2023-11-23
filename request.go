@@ -9,7 +9,7 @@ import (
 //
 // This can be used to add special logic for HTMX requests.
 //
-// Checks if 'HX-Request' is 'true'.
+// Checks if header 'HX-Request' is 'true'.
 func IsHTMXRequest(r *http.Request) bool {
 	return r.Header.Get(HeaderRequest) == "true"
 }
@@ -19,7 +19,7 @@ func IsHTMXRequest(r *http.Request) bool {
 //
 // This can be used to add special logic for boosted requests.
 //
-// Checks if 'HX-Boosted' is 'true'.
+// Checks if header 'HX-Boosted' is 'true'.
 func IsBoosted(r *http.Request) bool {
 	return r.Header.Get(HeaderBoosted) == "true"
 }
@@ -27,7 +27,7 @@ func IsBoosted(r *http.Request) bool {
 // IsHistoryRestoreRequest returns true if the given request
 // is for history restoration after a miss in the local history cache.
 //
-// Checks if 'HX-History-Restore-Request' is 'true'.
+// Checks if header 'HX-History-Restore-Request' is 'true'.
 func IsHistoryRestoreRequest(r *http.Request) bool {
 	return r.Header.Get(HeaderHistoryRestoreRequest) == "true"
 }
