@@ -51,11 +51,11 @@ You can also use this for checking if this is a GET request for the initial (ver
 
 ```go
 func(w http.ResponseWriter, r *http.Request) {
-  if htmx.IsHTMXRequest(r) {
-    // logic for handling HTMX requests
-  } else {
-    // logic for handling non-HTMX requests (e.g. render a full page for first-time visitors)
-  }
+	if htmx.IsHTMXRequest(r) {
+		// logic for handling HTMX requests
+	} else {
+		// logic for handling non-HTMX requests (e.g. render a full page for first-time visitors)
+	}
 }
 ```
 
@@ -63,11 +63,11 @@ func(w http.ResponseWriter, r *http.Request) {
 
 ```go
 func(w http.ResponseWriter, r *http.Request) {
-  if htmx.IsBoosted(r) {
-    // logic for handling boosted requests
-  } else {
-    // logic for handling non-boosted requests
-  }
+	if htmx.IsBoosted(r) {
+		// logic for handling boosted requests
+	} else {
+		// logic for handling non-boosted requests
+	}
 }
 ```
 
@@ -82,8 +82,8 @@ Make a response writer with `htmx.NewResponse()`, and add a header to it to make
 
 ``` go
 func(w http.ResponseWriter, r *http.Request) {
-    writer := htmx.NewResponse().Refresh(true)
-    writer.Write(w)
+ 	writer := htmx.NewResponse().Refresh(true)
+ 	writer.Write(w)
 }
 ```
 
