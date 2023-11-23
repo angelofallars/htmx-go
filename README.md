@@ -1,6 +1,6 @@
-<img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
-
 # htmx-go
+
+<img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
 
 A **type-safe** library for working with [HTMX](https://htmx.org/) in Go.
 
@@ -182,7 +182,7 @@ func(w http.ResponseWriter, r *http.Request) {
 
 > [!NOTE]
 > To avoid issues with custom HTTP status code headers with this approach,
-> it is recommended to use `Response().StatusCode()`so the status code header
+> it is recommended to use `Response().StatusCode()` so the status code header
 > is always set after the HTMX headers.
 
 ## Header names
