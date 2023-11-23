@@ -178,9 +178,9 @@ func(w http.ResponseWriter, r *http.Request) {
 ```
 
 > [!NOTE]
-> To avoid issues with HTTP status code headers with this approach,
+> To avoid issues with custom HTTP status code headers with this approach,
 > it is recommended to use `Response().StatusCode()`so the status code header
-> is set after the HTMX headers.
+> is always set after the HTMX headers.
 
 ## Header names
 
