@@ -177,6 +177,11 @@ func(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+> [!NOTE]
+> To avoid issues with HTTP status code headers with this approach,
+> it is recommended to use `Response().StatusCode()`so the status code header
+> is set after the HTMX headers.
+
 ## Header names
 
 If you need to work with HTMX headers directly, htmx-go provides constant values for all 
