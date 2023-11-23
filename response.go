@@ -67,6 +67,12 @@ func (r Response) Write(w http.ResponseWriter) error {
 		headerWriter.Set(k, v)
 	}
 
+	// Status code needs to be written after the other headers
+	// so the other headers can be written
+	if r.statusCode != 0 {
+		w.WriteHeader(r.statusCode)
+	}
+
 	return nil
 }
 
@@ -111,12 +117,6 @@ func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c temp
 	err := r.Write(w)
 	if err != nil {
 		return err
-	}
-
-	// Status code needs to be written after the other headers
-	// so the other headers can be written
-	if r.statusCode != 0 {
-		w.WriteHeader(r.statusCode)
 	}
 
 	err = c.Render(ctx, w)
