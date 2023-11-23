@@ -279,7 +279,7 @@ func (t triggerKeyValue) htmxTrigger() {}
 // Output header:
 //
 //	HX-Trigger: myEvent
-func Trigger(eventName string) triggerer {
+func Trigger(eventName string) trigger {
 	return trigger(eventName)
 }
 
