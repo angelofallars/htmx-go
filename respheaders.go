@@ -285,12 +285,12 @@ func Trigger(eventName string) triggerer {
 
 // Example:
 //
-//	TriggerWithValue("showMessage", "Here Is A Message")
+//	TriggerValue("showMessage", "Here Is A Message")
 //
 // Output header:
 //
 //	HX-Trigger: {"showMessage":"Here Is A Message"}
-func TriggerWithValue(eventName string, value string) triggerWithValue {
+func TriggerValue(eventName string, value string) triggerWithValue {
 	return triggerWithValue{
 		eventName: eventName,
 		value:     value,
