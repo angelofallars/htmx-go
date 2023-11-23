@@ -1,14 +1,16 @@
 <img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
 
-# htmx-go (WIP)
+# htmx-go
 
-A **type-safe** library for working with [HTMX](https://htmx.org/) in Go. Less time fiddling with HTTP
+A **type-safe** library for working with [HTMX](https://htmx.org/) in Go.
+
+Less time fiddling with HTTP
 headers, more time developing awesome Hypermedia-driven applications.
 
 Easily check if requests are from HTMX, and utilize a type-safe, declarative syntax for HTMX response headers to control HTMX behavior from the server.
 
-Has some integration with [templ](https://templ.guide/) components.
 Uses standard `net/http` types.
+Has some [integration](#templ-integration) with [templ](https://templ.guide/) components.
 
 ```go
 import (
@@ -101,7 +103,8 @@ func(w http.ResponseWriter, r *http.Request) {
 
 ### Triggers
 
-Add triggers without dealing with serializing the trigger headers.
+You can add triggers and let htmx-go take care of formatting and JSON serialization of the header
+values.
 
 Define event triggers:
 
@@ -234,6 +237,10 @@ With the Gin web framework on the other hand, try using `context.Request` and
 ## Additional resources
 
 - [HTMX - HTTP Header Reference](https://htmx.org/reference/#headers)
+
+## Contributing
+
+Pull requests are welcome!
 
 ## License
 
