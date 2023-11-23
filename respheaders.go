@@ -252,7 +252,7 @@ type (
 	// Unexported with a public constructor function for type safety reasons
 	trigger string
 	// Unexported with a public constructor function for type safety reasons
-	triggerWithValue struct {
+	triggerValue struct {
 		eventName string
 		value     string
 	}
@@ -266,8 +266,8 @@ type (
 // Trigger satisfies htmx.trigger
 func (t trigger) htmxTrigger() {}
 
-// TriggerWithValue satisfies htmx.trigger
-func (t triggerWithValue) htmxTrigger() {}
+// TriggerValue satisfies htmx.trigger
+func (t triggerValue) htmxTrigger() {}
 
 // TriggerKeyValue satisfies htmx.trigger
 func (t triggerKeyValue) htmxTrigger() {}
@@ -290,8 +290,8 @@ func Trigger(eventName string) trigger {
 // Output header:
 //
 //	HX-Trigger: {"showMessage":"Here Is A Message"}
-func TriggerValue(eventName string, value string) triggerWithValue {
-	return triggerWithValue{
+func TriggerValue(eventName string, value string) triggerValue {
+	return triggerValue{
 		eventName: eventName,
 		value:     value,
 	}
