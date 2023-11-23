@@ -32,7 +32,7 @@ func(w http.ResponseWriter, r *http.Request) {
 Use go get.
 
 ```sh
-go get -u github.com/angelofallars/htmx-go
+go get github.com/angelofallars/htmx-go@v0.1.0
 ```
 
 Then import htmx-go:
