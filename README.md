@@ -19,7 +19,7 @@ import (
 )
 
 func(w http.ResponseWriter, r *http.Request) {
-	if htmx.IsHTMXRequest(r) {
+	if htmx.IsHTMX(r) {
 		htmx.NewResponse().
 			Reswap(htmx.SwapBeforeEnd).
 			Retarget("#errors").
@@ -53,7 +53,7 @@ You can also use this for checking if this is a GET request for the initial (ver
 
 ```go
 func(w http.ResponseWriter, r *http.Request) {
-	if htmx.IsHTMXRequest(r) {
+	if htmx.IsHTMX(r) {
 		// logic for handling HTMX requests
 	} else {
 		// logic for handling non-HTMX requests (e.g. render a full page for first-time visitors)

@@ -4,13 +4,13 @@ import (
 	"net/http"
 )
 
-// IsHTMXRequest returns true if the given request
+// IsHTMX returns true if the given request
 // was made by HTMX.
 //
 // This can be used to add special logic for HTMX requests.
 //
 // Checks if header 'HX-Request' is 'true'.
-func IsHTMXRequest(r *http.Request) bool {
+func IsHTMX(r *http.Request) bool {
 	return r.Header.Get(HeaderRequest) == "true"
 }
 
