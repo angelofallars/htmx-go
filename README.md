@@ -1,5 +1,7 @@
 # htmx-go
 
+[![GoDoc](https://pkg.go.dev/badge/github.com/angelofallars/htmx-go?status.svg)](https://pkg.go.dev/github.com/angelofallars/htmx-go?tab=doc)
+
 <img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
 
 A **type-safe** library for working with [HTMX](https://htmx.org/) in Go.
