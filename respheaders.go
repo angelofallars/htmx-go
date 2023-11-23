@@ -82,6 +82,8 @@ func (r *Response) setStatusCode(statusCode int) {
 // you can use response.LocationWithContext().
 //
 // Sets the 'HX-Location' header.
+//
+// For more info, see https://htmx.org/headers/hx-location/
 func (r Response) Location(path string) Response {
 	r.headers[HeaderLocation] = path
 	return r
@@ -131,6 +133,8 @@ type locationContext struct {
 // For simple redirects, you can just use response.Location().
 //
 // Sets the 'HX-Location' header.
+//
+// For more info, see https://htmx.org/headers/hx-location/
 func (r Response) LocationWithContext(path string, ctx LocationContext) Response {
 	// Replace the error at the start because the last errors shouldn't really matter
 	r.locationWithContextErr = make([]error, 0)
@@ -163,6 +167,8 @@ func (r Response) LocationWithContext(path string, ctx LocationContext) Response
 // Sets the same header as Response.PreventPushURL(), overwriting previous set headers.
 //
 // Sets the 'HX-Push-Url' header.
+//
+// For more info, see https://htmx.org/headers/hx-push-url/
 func (r Response) PushURL(url string) Response {
 	r.headers[HeaderPushURL] = url
 	return r
@@ -173,6 +179,8 @@ func (r Response) PushURL(url string) Response {
 // Sets the same header as Response.PushURL(), overwriting previous set headers.
 //
 // Sets the 'HX-Push-Url' header.
+//
+// For more info, see https://htmx.org/headers/hx-push-url/
 func (r Response) PreventPushURL() Response {
 	r.headers[HeaderPushURL] = falseString
 	return r
@@ -203,6 +211,8 @@ func (r Response) Refresh(shouldRefresh bool) Response {
 // Sets the same header as Response.PreventReplaceURL(), overwriting previous set headers.
 //
 // Sets the 'HX-Replace-Url' header.
+//
+// For more info, see https://htmx.org/headers/hx-replace-url/
 func (r Response) ReplaceURL(url string) Response {
 	r.headers[HeaderReplaceUrl] = url
 	return r
@@ -213,6 +223,8 @@ func (r Response) ReplaceURL(url string) Response {
 // Sets the same header as Response.ReplaceURL(), overwriting previous set headers.
 //
 // Sets the 'HX-Replace-Url' header to 'false'.
+//
+// For more info, see https://htmx.org/headers/hx-replace-url/
 func (r Response) PreventReplaceURL() Response {
 	r.headers[HeaderReplaceUrl] = falseString
 	return r
@@ -226,7 +238,7 @@ func (r Response) Reswap(s swapper) Response {
 	return r
 }
 
-// Retarget accepts a CSS selector that updates the target of the content update to a different element on the page.
+// Retarget accepts a CSS selector that updates the target of the content update to a different element on the page. Overrides an existing 'hx-select' on the triggering element.
 //
 // Sets the 'HX-Retarget' header.
 func (r Response) Retarget(selector string) Response {

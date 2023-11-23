@@ -22,7 +22,7 @@ const (
 const (
 	// As a request header:
 	//
-	//    The id of the triggered element if it exists.
+	//    The ID of the triggered element if it exists.
 	//
 	// As a response header:
 	//
