@@ -2,7 +2,7 @@ package htmx
 
 import (
 	"encoding/json"
-	"net/http"
+	"strings"
 )
 
 const trueString = "true"
@@ -256,13 +256,14 @@ func (r Response) Reselect(selector string) Response {
 }
 
 type (
-	// Just a bare interface for restricting the triggerer types
-	triggerer interface {
+	// EventTrigger gives an HTMX response directives to
+	// triggers events on the client side.
+	EventTrigger interface {
 		htmxTrigger()
 	}
 
 	// Unexported with a public constructor function for type safety reasons
-	trigger string
+	triggerPlain string
 	// Unexported with a public constructor function for type safety reasons
 	triggerValue struct {
 		eventName string
@@ -276,7 +277,7 @@ type (
 )
 
 // Trigger satisfies htmx.trigger
-func (t trigger) htmxTrigger() {}
+func (t triggerPlain) htmxTrigger() {}
 
 // TriggerValue satisfies htmx.trigger
 func (t triggerValue) htmxTrigger() {}
@@ -284,34 +285,46 @@ func (t triggerValue) htmxTrigger() {}
 // TriggerKeyValue satisfies htmx.trigger
 func (t triggerKeyValue) htmxTrigger() {}
 
+// Trigger returns an event trigger with no additional details.
+//
 // Example:
 //
-//	TriggerWithValue("myEvent")
+//	htmx.Trigger("myEvent")
 //
 // Output header:
 //
 //	HX-Trigger: myEvent
-func Trigger(eventName string) trigger {
-	return trigger(eventName)
+//
+// For more info, see https://htmx.org/headers/hx-trigger/
+func Trigger(eventName string) triggerPlain {
+	return triggerPlain(eventName)
 }
 
+// TriggerValue returns an event trigger with one detail string.
+// Will be encoded as JSON.
+//
 // Example:
 //
-//	TriggerValue("showMessage", "Here Is A Message")
+//	htmx.TriggerValue("showMessage", "Here Is A Message")
 //
 // Output header:
 //
 //	HX-Trigger: {"showMessage":"Here Is A Message"}
-func TriggerValue(eventName string, value string) triggerValue {
+//
+// For more info, see https://htmx.org/headers/hx-trigger/
+func TriggerValue(eventName string, detail string) triggerValue {
 	return triggerValue{
 		eventName: eventName,
-		value:     value,
+		value:     detail,
 	}
 }
 
+// TriggerKeyValue returns an event trigger with key/value items.
+// Will be encoded as JSON.
+//
 // Example:
 //
-//	TriggerWithValue("showMessage", map[string]string{
+//	htmx.TriggerKeyValue("showMessage", map[string]string{
 //	  "level": "info",
 //	  "message": "Here Is A Message",
 //	})
@@ -319,58 +332,108 @@ func TriggerValue(eventName string, value string) triggerValue {
 // Output header:
 //
 //	HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
-func TriggerKeyValue(eventName string, value map[string]string) triggerKeyValue {
+//
+// For more info, see https://htmx.org/headers/hx-trigger/
+func TriggerKeyValue(eventName string, details map[string]string) triggerKeyValue {
 	return triggerKeyValue{
 		eventName: eventName,
-		value:     value,
+		value:     details,
 	}
 }
 
-// **( TODO function, not working yet )**
+// triggersToString converts a slice of triggers into a header value
+// for headers like 'HX-Trigger'.
+func triggersToString(triggers []EventTrigger) (string, error) {
+	simpleEvents := make([]string, 0)
+	detailEvents := make(map[string]any)
+
+	for _, t := range triggers {
+		switch v := t.(type) {
+		case triggerPlain:
+			simpleEvents = append(simpleEvents, string(v))
+		case triggerKeyValue:
+			detailEvents[v.eventName] = v.value
+		case triggerValue:
+			detailEvents[v.eventName] = v.value
+		}
+	}
+
+	if len(detailEvents) == 0 {
+		return strings.Join(simpleEvents, ", "), nil
+	} else {
+		for _, evt := range simpleEvents {
+			detailEvents[evt] = ""
+		}
+
+		bytes, err := json.Marshal(detailEvents)
+
+		if err != nil {
+			return "", err
+		}
+
+		return string(bytes), nil
+	}
+}
+
+// AddTrigger adds trigger(s) for events that trigger as soon as the response is received.
 //
-// AddTrigger adds a trigger for events that trigger as soon as the response is received.
-//
-// This can be called multiple times so you can add multiple triggers for different events.
+// This can be called multiple times so you can add as many triggers as you need.
 //
 // Sets the 'HX-Trigger' header.
-func (r Response) AddTrigger(trigger triggerer) Response {
-	// TODO: AddTrigger
+//
+// For more info, see https://htmx.org/headers/hx-trigger/
+func (r Response) AddTrigger(trigger ...EventTrigger) Response {
+	r.initTriggers()
+	r.triggers = append(r.triggers, trigger...)
 	return r
 }
 
-// **( TODO function, not working yet )**
+// AddTriggerAfterSettle adds trigger(s) for events that trigger after the settling step.
 //
-// AddTriggerAfterSettle adds a trigger for events that trigger after the settling step.
-//
-// This can be called multiple times so you can add multiple triggers for different events.
+// This can be called multiple times so you can add as many triggers as you need.
 //
 // Sets the 'HX-Trigger-After-Settle' header.
-func (r Response) AddTriggerAfterSettle(trigger triggerer) Response {
-	// TODO: AddTriggerAfterSettle
+//
+// For more info, see https://htmx.org/headers/hx-trigger/
+func (r Response) AddTriggerAfterSettle(trigger ...EventTrigger) Response {
+	r.initTriggersAfterSettle()
+	r.triggersAfterSettle = append(r.triggersAfterSettle, trigger...)
 	return r
 }
 
-// **( TODO function, not working yet )**
+// AddTriggerAfterSwap adds trigger(s) for events that trigger after the swap step.
 //
-// AddTriggerAfterSwap adds a trigger for events that trigger after the swap step.
-//
-// This can be called multiple times so you can add multiple triggers for different events.
+// This can be called multiple times so you can add as many triggers as you need.
 //
 // Sets the 'HX-Trigger-After-Swap' header.
-func (r Response) AddTriggerAfterSwap(trigger triggerer) Response {
-	// TODO: AddTriggerAfterSwap
+//
+// For more info, see https://htmx.org/headers/hx-trigger/
+func (r Response) AddTriggerAfterSwap(trigger ...EventTrigger) Response {
+	r.initTriggersAfterSwap()
+	r.triggersAfterSwap = append(r.triggersAfterSwap, trigger...)
 	return r
 }
 
-func testResponses(w http.ResponseWriter, r *http.Request) {
-	NewResponse().
-		Refresh(true).
-		ReplaceURL("/items").
-		Write(w)
+// Lazily init the triggers slice because not all responses
+// use triggers
+func (r *Response) initTriggers() {
+	if r.triggers == nil {
+		r.triggers = make([]EventTrigger, 0)
+	}
+}
 
-	NewResponse().AddTrigger(TriggerWithValue("event", "eee"))
+// Lazily init the triggersAfterSettle slice because not all responses
+// use triggers
+func (r *Response) initTriggersAfterSettle() {
+	if r.triggersAfterSettle == nil {
+		r.triggersAfterSettle = make([]EventTrigger, 0)
+	}
+}
 
-	NewResponse().Retarget("#errors")
-
-	NewResponse().Reswap(SwapBeforeEnd)
+// Lazily init the triggersAfterSwap slice because not all responses
+// use triggers
+func (r *Response) initTriggersAfterSwap() {
+	if r.triggersAfterSwap == nil {
+		r.triggersAfterSwap = make([]EventTrigger, 0)
+	}
 }

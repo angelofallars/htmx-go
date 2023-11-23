@@ -3,6 +3,7 @@ package htmx
 import (
 	"context"
 	"errors"
+	"fmt"
 	"net/http"
 )
 
@@ -13,6 +14,15 @@ type Response struct {
 
 	// The HTTP status code to use
 	statusCode int
+
+	// Triggers for 'HX-Trigger'
+	triggers []EventTrigger
+
+	// Triggers for 'HX-Trigger-After-Settle'
+	triggersAfterSettle []EventTrigger
+
+	// Triggers for 'HX-Trigger-After-Swap'
+	triggersAfterSwap []EventTrigger
 
 	// JSON marshalling might fail, so we need to keep track of this error
 	// to return when `Write` is called
@@ -47,22 +57,53 @@ func (r Response) Write(w http.ResponseWriter) error {
 		return errors.Join(r.locationWithContextErr...)
 	}
 
-	header := w.Header()
-	for k, v := range r.headers {
-		header.Add(k, v)
+	headers, err := r.Headers()
+	if err != nil {
+		return err
+	}
+
+	headerWriter := w.Header()
+	for k, v := range headers {
+		headerWriter.Set(k, v)
 	}
 
 	return nil
 }
 
-// Headers returns a copy of the headers. Any modifications to the
+// Headers returns a copied map of the headers. Any modifications to the
 // returned headers will not affect the headers in this struct.
-func (r Response) Headers() map[string]string {
+func (r Response) Headers() (map[string]string, error) {
 	m := make(map[string]string)
+
 	for k, v := range r.headers {
 		m[k] = v
 	}
-	return m
+
+	if r.triggers != nil {
+		triggers, err := triggersToString(r.triggers)
+		if err != nil {
+			return nil, fmt.Errorf("marshalling triggers failed: %w", err)
+		}
+		m[HeaderTrigger] = triggers
+	}
+
+	if r.triggersAfterSettle != nil {
+		triggers, err := triggersToString(r.triggersAfterSettle)
+		if err != nil {
+			return nil, fmt.Errorf("marshalling triggers after settle failed: %w", err)
+		}
+		m[HeaderTriggerAfterSettle] = triggers
+	}
+
+	if r.triggersAfterSwap != nil {
+		triggers, err := triggersToString(r.triggersAfterSwap)
+		if err != nil {
+			return nil, fmt.Errorf("marshalling triggers after swap failed: %w", err)
+		}
+		m[HeaderTriggerAfterSwap] = triggers
+	}
+
+	return m, nil
 }
 
 // RenderTempl renders a Templ component along with the defined HTMX headers.
