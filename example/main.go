@@ -11,8 +11,8 @@ import (
 func main() {
 	r := htmx.NewResponse().
 		AddTrigger(
-			htmx.TriggerValue("hello", "world"),
-			htmx.TriggerKeyValue("myEvent", map[string]string{
+			htmx.TriggerObject("hello", "world"),
+			htmx.TriggerObject("myEvent", map[string]string{
 				"level":   "info",
 				"message": "Here is a Message",
 			}),
