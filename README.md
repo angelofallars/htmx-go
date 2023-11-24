@@ -187,6 +187,16 @@ func(w http.ResponseWriter, r *http.Request) {
 > it is recommended to use `Response().StatusCode()` so the status code header
 > is always set after the HTMX headers.
 
+### Stop polling
+
+If you have an element that is polling a URL and you want it to stop, use the
+`htmx.StatusStopPolling` 286 status code in a response to cancel the polling. [HTMX documentation
+reference](https://htmx.org/docs/#polling)
+
+```go
+w.WriteHeader(htmx.StatusStopPolling)
+```
+
 ## Header names
 
 If you need to work with HTMX headers directly, htmx-go provides constant values for all 

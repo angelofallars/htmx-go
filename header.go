@@ -54,3 +54,10 @@ const (
 	// Response header that allows you to trigger client-side events after the swap step.
 	HeaderTriggerAfterSwap = "HX-Trigger-After-Swap"
 )
+
+// **286 Stop Polling**
+//
+// HTTP status code that tells HTMX to stop polling from a server response.
+//
+// For more info, see https://htmx.org/docs/#load_polling
+const StatusStopPolling int = 286
