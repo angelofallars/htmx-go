@@ -113,7 +113,7 @@ func (r Response) Headers() (map[string]string, error) {
 }
 
 // RenderTempl renders a Templ component along with the defined HTMX headers.
-func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c templComponent) error {
+func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c TemplComponent) error {
 	err := r.Write(w)
 	if err != nil {
 		return err

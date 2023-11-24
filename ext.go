@@ -6,7 +6,7 @@ import (
 )
 
 // Interface to integrate with Templ components
-type templComponent interface {
+type TemplComponent interface {
 	// Render the template.
 	Render(ctx context.Context, w io.Writer) error
 }
