@@ -312,10 +312,10 @@ func Trigger(eventName string) triggerPlain {
 //	HX-Trigger: {"showMessage":"Here Is A Message"}
 //
 // For more info, see https://htmx.org/headers/hx-trigger/
-func TriggerDetail(eventName string, detail string) triggerDetail {
+func TriggerDetail(eventName string, detailValue string) triggerDetail {
 	return triggerDetail{
 		eventName: eventName,
-		value:     detail,
+		value:     detailValue,
 	}
 }
 
@@ -335,10 +335,10 @@ func TriggerDetail(eventName string, detail string) triggerDetail {
 //	HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
 //
 // For more info, see https://htmx.org/headers/hx-trigger/
-func TriggerObject(eventName string, object any) triggerObject {
+func TriggerObject(eventName string, detailObject any) triggerObject {
 	return triggerObject{
 		eventName: eventName,
-		object:    object,
+		object:    detailObject,
 	}
 }
 

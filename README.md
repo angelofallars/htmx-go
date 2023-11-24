@@ -111,8 +111,8 @@ values.
 Define event triggers:
 
 - `htmx.Trigger(eventName string)` - A trigger with no details.
-- `htmx.TriggerDetail(eventName string, detail string)` - A trigger with one detail value.
-- `htmx.TriggerObject(eventName string, object any)` - A trigger with a JSON-serializable detail
+- `htmx.TriggerDetail(eventName string, detailValue string)` - A trigger with one detail value.
+- `htmx.TriggerObject(eventName string, detailObject any)` - A trigger with a JSON-serializable detail
 object. Recommended to pass in either `map[string]string` or structs with JSON field tags.
 
 Set trigger headers using the triggers above:
