@@ -111,7 +111,7 @@ values.
 Define event triggers:
 
 - `htmx.Trigger(eventName string)` - A trigger with no details.
-- `htmx.TriggerValue(eventName string, detail string)` - A trigger with one detail.
+- `htmx.TriggerDetail(eventName string, detail string)` - A trigger with one detail value.
 - `htmx.TriggerObject(eventName string, object any)` - A trigger with a JSON-serializable detail
 object. Recommended to pass in either `map[string]string` or structs with JSON field tags.
 
@@ -128,12 +128,12 @@ htmx.NewResponse().
 // HX-Trigger: myEvent
 
 htmx.NewResponse().
-	AddTrigger(htmx.TriggerValue("showMessage", "Here Is A Message"))
+	AddTrigger(htmx.TriggerDetail("showMessage", "Here Is A Message"))
 // HX-Trigger: {"showMessage":"Here Is A Message"}
 
 htmx.NewResponse().
 	AddTrigger(
-			htmx.TriggerValue("hello", "world"),
+			htmx.TriggerDetail("hello", "world"),
 			htmx.TriggerObject("myEvent", map[string]string{
 				"level":   "info",
 				"message": "Here Is A Message",

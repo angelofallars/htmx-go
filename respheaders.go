@@ -265,7 +265,7 @@ type (
 	// Unexported with a public constructor function for type safety reasons
 	triggerPlain string
 	// Unexported with a public constructor function for type safety reasons
-	triggerValue struct {
+	triggerDetail struct {
 		eventName string
 		value     string
 	}
@@ -279,8 +279,8 @@ type (
 // Trigger satisfies htmx.trigger
 func (t triggerPlain) htmxTrigger() {}
 
-// TriggerValue satisfies htmx.trigger
-func (t triggerValue) htmxTrigger() {}
+// TriggerDetail satisfies htmx.trigger
+func (t triggerDetail) htmxTrigger() {}
 
 // TriggerObject satisfies htmx.trigger
 func (t triggerObject) htmxTrigger() {}
@@ -300,20 +300,20 @@ func Trigger(eventName string) triggerPlain {
 	return triggerPlain(eventName)
 }
 
-// TriggerValue returns an event trigger with one detail string.
+// TriggerDetail returns an event trigger with one detail string.
 // Will be encoded as JSON.
 //
 // Example:
 //
-//	htmx.TriggerValue("showMessage", "Here Is A Message")
+//	htmx.TriggerDetail("showMessage", "Here Is A Message")
 //
 // Output header:
 //
 //	HX-Trigger: {"showMessage":"Here Is A Message"}
 //
 // For more info, see https://htmx.org/headers/hx-trigger/
-func TriggerValue(eventName string, detail string) triggerValue {
-	return triggerValue{
+func TriggerDetail(eventName string, detail string) triggerDetail {
+	return triggerDetail{
 		eventName: eventName,
 		value:     detail,
 	}
@@ -354,7 +354,7 @@ func triggersToString(triggers []EventTrigger) (string, error) {
 			simpleEvents = append(simpleEvents, string(v))
 		case triggerObject:
 			detailEvents[v.eventName] = v.object
-		case triggerValue:
+		case triggerDetail:
 			detailEvents[v.eventName] = v.value
 		}
 	}
