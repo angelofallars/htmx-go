@@ -276,13 +276,13 @@ type (
 	}
 )
 
-// Trigger satisfies htmx.trigger
+// trigger satisfies htmx.EventTrigger
 func (t triggerPlain) htmxTrigger() {}
 
-// TriggerDetail satisfies htmx.trigger
+// triggerDetail satisfies htmx.EventTrigger
 func (t triggerDetail) htmxTrigger() {}
 
-// TriggerObject satisfies htmx.trigger
+// triggerObject satisfies htmx.EventTrigger
 func (t triggerObject) htmxTrigger() {}
 
 // Trigger returns an event trigger with no additional details.
