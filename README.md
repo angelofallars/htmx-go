@@ -1,8 +1,11 @@
 # htmx-go
 
-[![GoDoc](https://pkg.go.dev/badge/github.com/angelofallars/htmx-go?status.svg)](https://pkg.go.dev/github.com/angelofallars/htmx-go?tab=doc)
-
 <img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
+
+[![GoDoc](https://pkg.go.dev/badge/github.com/angelofallars/htmx-go?status.svg)](https://pkg.go.dev/github.com/angelofallars/htmx-go?tab=doc)
+[![License](https://img.shields.io/github/license/angelofallars/htmx-go)](./LICENSE)
+[![Issues](https://img.shields.io/github/issues/angelofallars/htmx-go)](https://github.com/angelofallars/htmx-go/issues)
+[![Stars](https://img.shields.io/github/stars/angelofallars/htmx-go)](https://github.com/angelofallars/htmx-go/stargazers)
 
 A **type-safe** library for working with [HTMX](https://htmx.org/) in Go.
 
