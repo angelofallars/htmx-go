@@ -112,8 +112,8 @@ Define event triggers:
 
 - `htmx.Trigger(eventName string)` - A trigger with no details.
 - `htmx.TriggerValue(eventName string, detail string)` - A trigger with one detail.
-- `htmx.TriggerKeyValue(eventName string, details map[string]string)` - A trigger with key/value
-details.
+- `htmx.TriggerObject(eventName string, object any)` - A trigger with a JSON-serializable detail
+object. Recommended to pass in either `map[string]string` or structs with JSON field tags.
 
 Set trigger headers using the triggers above:
 
@@ -134,7 +134,7 @@ htmx.NewResponse().
 htmx.NewResponse().
 	AddTrigger(
 			htmx.TriggerValue("hello", "world"),
-			htmx.TriggerKeyValue("myEvent", map[string]string{
+			htmx.TriggerObject("myEvent", map[string]string{
 				"level":   "info",
 				"message": "Here Is A Message",
 			}),

@@ -270,9 +270,9 @@ type (
 		value     string
 	}
 	// Unexported with a public constructor function for type safety reasons
-	triggerKeyValue struct {
+	triggerObject struct {
 		eventName string
-		value     map[string]string
+		object    any
 	}
 )
 
@@ -282,8 +282,8 @@ func (t triggerPlain) htmxTrigger() {}
 // TriggerValue satisfies htmx.trigger
 func (t triggerValue) htmxTrigger() {}
 
-// TriggerKeyValue satisfies htmx.trigger
-func (t triggerKeyValue) htmxTrigger() {}
+// TriggerObject satisfies htmx.trigger
+func (t triggerObject) htmxTrigger() {}
 
 // Trigger returns an event trigger with no additional details.
 //
@@ -319,12 +319,13 @@ func TriggerValue(eventName string, detail string) triggerValue {
 	}
 }
 
-// TriggerKeyValue returns an event trigger with key/value items.
-// Will be encoded as JSON.
+// TriggerObject returns an event trigger with a given detail object that **must** be serializable to JSON.
+//
+// Structs with JSON tags can work, and so does `map[string]string` values which are safe to serialize.
 //
 // Example:
 //
-//	htmx.TriggerKeyValue("showMessage", map[string]string{
+//	htmx.TriggerObject("showMessage", map[string]string{
 //	  "level": "info",
 //	  "message": "Here Is A Message",
 //	})
@@ -334,10 +335,10 @@ func TriggerValue(eventName string, detail string) triggerValue {
 //	HX-Trigger: {"showMessage":{"level" : "info", "message" : "Here Is A Message"}}
 //
 // For more info, see https://htmx.org/headers/hx-trigger/
-func TriggerKeyValue(eventName string, details map[string]string) triggerKeyValue {
-	return triggerKeyValue{
+func TriggerObject(eventName string, object any) triggerObject {
+	return triggerObject{
 		eventName: eventName,
-		value:     details,
+		object:    object,
 	}
 }
 
@@ -351,8 +352,8 @@ func triggersToString(triggers []EventTrigger) (string, error) {
 		switch v := t.(type) {
 		case triggerPlain:
 			simpleEvents = append(simpleEvents, string(v))
-		case triggerKeyValue:
-			detailEvents[v.eventName] = v.value
+		case triggerObject:
+			detailEvents[v.eventName] = v.object
 		case triggerValue:
 			detailEvents[v.eventName] = v.value
 		}
