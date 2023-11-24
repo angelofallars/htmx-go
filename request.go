@@ -20,6 +20,8 @@ func IsHTMX(r *http.Request) bool {
 // This can be used to add special logic for boosted requests.
 //
 // Checks if header 'HX-Boosted' is 'true'.
+//
+// For more info, see https://htmx.org/attributes/hx-boost/
 func IsBoosted(r *http.Request) bool {
 	return r.Header.Get(HeaderBoosted) == "true"
 }
@@ -45,6 +47,8 @@ func GetCurrentURL(r *http.Request) (string, bool) {
 // GetPrompt returns the user response to an hx-prompt from a given request.
 //
 // Returns false if header 'HX-Prompt' does not exist.
+//
+// For more info, see https://htmx.org/attributes/hx-prompt/
 func GetPrompt(r *http.Request) (string, bool) {
 	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderPrompt)]; !ok {
 		return "", false
@@ -55,6 +59,8 @@ func GetPrompt(r *http.Request) (string, bool) {
 // GetTarget returns the ID of the target element if it exists from a given request.
 //
 // Returns false if header 'HX-Target' does not exist.
+//
+// For more info, see https://htmx.org/attributes/hx-target/
 func GetTarget(r *http.Request) (string, bool) {
 	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderTarget)]; !ok {
 		return "", false
@@ -65,6 +71,8 @@ func GetTarget(r *http.Request) (string, bool) {
 // GetTriggerName returns the 'name' of the triggered element if it exists from a given request.
 //
 // Returns false if header 'HX-Trigger-Name' does not exist.
+//
+// For more info, see https://htmx.org/attributes/hx-trigger/
 func GetTriggerName(r *http.Request) (string, bool) {
 	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderTriggerName)]; !ok {
 		return "", false
@@ -75,6 +83,8 @@ func GetTriggerName(r *http.Request) (string, bool) {
 // GetTrigger returns the ID of the triggered element if it exists from a given request.
 //
 // Returns false if header 'HX-Trigger' does not exist.
+//
+// For more info, see https://htmx.org/attributes/hx-trigger/
 func GetTrigger(r *http.Request) (string, bool) {
 	if _, ok := r.Header[http.CanonicalHeaderKey(HeaderTrigger)]; !ok {
 		return "", false

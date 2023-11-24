@@ -93,6 +93,8 @@ func (r Response) Location(path string) Response {
 // to finely determine the behavior of client-side redirection.
 //
 // In the browser, these are the parameters that will be used by 'htmx.ajax()'.
+//
+// For more info, see https://htmx.org/headers/hx-location/
 type LocationContext struct {
 	// The source element of the request.
 	Source string
@@ -233,6 +235,8 @@ func (r Response) PreventReplaceURL() Response {
 // Reswap allows you to specify how the response will be swapped. Accepts 'htmx.Swap*' values from this library.
 //
 // Sets the 'HX-Reswap' header.
+//
+// For more info, see https://htmx.org/attributes/hx-swap/
 func (r Response) Reswap(s swapper) Response {
 	r.headers[HeaderReswap] = s.swap()
 	return r
@@ -241,6 +245,8 @@ func (r Response) Reswap(s swapper) Response {
 // Retarget accepts a CSS selector that updates the target of the content update to a different element on the page. Overrides an existing 'hx-select' on the triggering element.
 //
 // Sets the 'HX-Retarget' header.
+//
+// For more info, see https://htmx.org/attributes/hx-target/
 func (r Response) Retarget(selector string) Response {
 	r.headers[HeaderRetarget] = selector
 	return r
@@ -250,6 +256,8 @@ func (r Response) Retarget(selector string) Response {
 // Overrides an existing hx-select on the triggering element.
 //
 // Sets the 'HX-Reselect' header.
+//
+// For more info, see https://htmx.org/attributes/hx-select/
 func (r Response) Reselect(selector string) Response {
 	r.headers[HeaderReselect] = selector
 	return r
