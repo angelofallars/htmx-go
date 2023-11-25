@@ -5,19 +5,19 @@ import (
 	"time"
 )
 
-func TestXxx(t *testing.T) {
+func TestSwapStrategy_Swap(t *testing.T) {
 	testCases := []struct {
 		name     string
 		strategy swapStrategy
 		headers  string
 	}{
 		{
-			name:     "no modifiers",
+			name:     "no modifier",
 			strategy: SwapInnerHTML,
 			headers:  "innerHTML",
 		},
 		{
-			name:     "one modifiers",
+			name:     "one modifier",
 			strategy: SwapInnerHTML.WithTransition(true),
 			headers:  "innerHTML transition:true",
 		},
