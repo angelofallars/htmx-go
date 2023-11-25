@@ -68,7 +68,7 @@ type locationContext struct {
 	Event   string            `json:"event,omitempty"`
 	Handler string            `json:"handler,omitempty"`
 	Target  string            `json:"target,omitempty"`
-	Swap    swapper           `json:"swap,omitempty"`
+	Swap    string            `json:"swap,omitempty"`
 	Values  map[string]string `json:"values,omitempty"`
 	Headers map[string]string `json:"headers,omitempty"`
 	Select  string            `json:"select,omitempty"`
@@ -92,7 +92,7 @@ func (r Response) LocationWithContext(path string, ctx LocationContext) Response
 		Event:   ctx.Event,
 		Handler: ctx.Handler,
 		Target:  ctx.Target,
-		Swap:    ctx.Swap,
+		Swap:    ctx.Swap.swapString(),
 		Values:  ctx.Values,
 		Headers: ctx.Headers,
 		Select:  ctx.Select,
