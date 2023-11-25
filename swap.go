@@ -197,14 +197,14 @@ func (s SwapStrategy) Scroll(direction Direction) SwapStrategy {
 
 // ScrollOn changes the scrolling behavior based on the given direction and CSS selector.
 //
-// ScrollOn([htmx.Top], cssSelector) scrolls to the top of the element found by the selector.
+// ScrollOn(cssSelector, [htmx.Top]) scrolls to the top of the element found by the selector.
 //
-// ScrollOn([htmx.Bottom], cssSelector) scrolls to the bottom of the element found by the selector.
+// ScrollOn(cssSelector, [htmx.Bottom]) scrolls to the bottom of the element found by the selector.
 //
 // Adds the 'scroll:<cssSelector>:<direction ("top" | "bottom")>' modifier.
 //
 // For more info, see https://htmx.org/attributes/hx-swap/
-func (s SwapStrategy) ScrollOn(direction Direction, cssSelector string) SwapStrategy {
+func (s SwapStrategy) ScrollOn(cssSelector string, direction Direction) SwapStrategy {
 	v := s.cutPrefix("scroll")
 	mod := "scroll:" + cssSelector + ":" + direction.dirString()
 	return SwapStrategy(join(v, mod))
@@ -242,14 +242,14 @@ func (s SwapStrategy) Show(direction Direction) SwapStrategy {
 
 // ShowOn changes the show behavior based on the given direction and CSS selector.
 //
-// ShowOn([htmx.Top], cssSelector) shows the top of the element found by the selector.
+// ShowOn(cssSelector, [htmx.Top]) shows the top of the element found by the selector.
 //
-// ShowOn([htmx.Bottom], cssSelector) shows the bottom of the element found by the selector.
+// ShowOn(cssSelector, [htmx.Bottom]) shows the bottom of the element found by the selector.
 //
 // Adds the 'show:<cssSelector>:<direction ("top" | "bottom")>' modifier.
 //
 // For more info, see https://htmx.org/attributes/hx-swap/
-func (s SwapStrategy) ShowOn(direction Direction, cssSelector string) SwapStrategy {
+func (s SwapStrategy) ShowOn(cssSelector string, direction Direction) SwapStrategy {
 	v := s.cutPrefix("show")
 	mod := "show:" + cssSelector + ":" + direction.dirString()
 	return SwapStrategy(join(v, mod))
