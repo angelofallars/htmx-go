@@ -16,6 +16,8 @@ Easily check if requests are from HTMX, and utilize a type-safe, declarative syn
 
 Write [triggers](#triggers) without dealing with JSON formatting. Define trigger behavior, and htmx-go handles the rest.
 
+Use [Swap Strategy](#swap-strategy) methods to fine-tune `hx-swap` behavior.
+
 Uses standard `net/http` types.
 Has basic [integration](#templ-integration) with [templ](https://templ.guide/) components.
 
@@ -146,6 +148,55 @@ htmx.NewResponse().
   )
 // HX-Trigger: {"hello":"world","myEvent":{"level":"info","message":"Here is a Message"}}
 ```
+
+### Swap Strategy
+
+`Response.Reswap()` takes in `SwapStrategy` values from this library. 
+
+```go
+htmx.NewResponse().
+	Reswap(htmx.SwapInnerHTML)
+// HX-Reswap: innerHTML
+
+htmx.NewResponse().
+	Reswap(htmx.SwapAfterEnd.Transition(true))
+// HX-Reswap: innerHTML transition:true
+```
+
+Exported `SwapStrategy` constant values can be appended with modifiers through their methods.
+If successive methods write to the same modifier,
+the modifier is always replaced with the latest one.
+
+```go
+import "time"
+
+htmx.SwapInnerHTMl.After(time.Second * 1)
+// HX-Reswap: innerHTML swap:1s
+
+htmx.SwapBeforeEnd.Scroll(htmx.Bottom)
+// HX-Reswap: beforeend scroll:bottom
+
+htmx.SwapAfterEnd.IgnoreTitle(true)
+// HX-Reswap: beforeend ignoreTitle:true
+
+htmx.SwapAfterEnd.FocusScroll(true)
+// HX-Reswap: beforeend ignoreTitle:true
+
+htmx.SwapInnerHTML.ShowOn("#another-div", htmx.Top)
+// HX-Reswap: innerHTML show:#another-div:top
+
+// Modifier chaining
+htmx.SwapInnerHTML.ShowOn("#another-div", htmx.Top).After(time.Millisecond * 500)
+// HX-Reswap: innerHTML show:#another-div:top swap:500ms
+
+htmx.SwapBeforeBegin.ShowWindow(htmx.Top)
+// HX-Reswap: beforebegin show:window:top
+
+htmx.SwapDefault.ShowNone()
+// HX-Reswap: show:none
+```
+
+[HTMX Reference: `hx-swap`](https://htmx.org/attributes/hx-swap/)
 
 ### Code organization
 
