@@ -14,10 +14,10 @@ headers, more time developing awesome Hypermedia-driven applications.
 
 Easily check if requests are from HTMX, and utilize a type-safe, declarative syntax for HTMX response headers to control HTMX behavior from the server.
 
-Write [triggers](#triggers) without having to deal with JSON formatting. Define trigger behavior, and htmx-go handles the rest.
+Write [triggers](#triggers) without dealing with JSON formatting. Define trigger behavior, and htmx-go handles the rest.
 
 Uses standard `net/http` types.
-Has some [integration](#templ-integration) with [templ](https://templ.guide/) components.
+Has basic [integration](#templ-integration) with [templ](https://templ.guide/) components.
 
 ```go
 import (
