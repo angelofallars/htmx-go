@@ -2,7 +2,9 @@ package htmx
 
 import (
 	"encoding/json"
+	"strconv"
 	"strings"
+	"time"
 )
 
 const trueString = "true"
@@ -19,6 +21,14 @@ type (
 
 func (s swapStrategy) swap() string {
 	return string(s)
+}
+
+func (s swapStrategy) WithTransition(v bool) swapStrategy {
+	return s + swapStrategy(" transition:"+strconv.FormatBool(v))
+}
+
+func (s swapStrategy) WithSwap(v time.Duration) swapStrategy {
+	return s + swapStrategy(" swap:"+strconv.Itoa(int(v.Seconds()))+"s")
 }
 
 const (
