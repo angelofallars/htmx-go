@@ -177,10 +177,10 @@ htmx.SwapBeforeEnd.Scroll(htmx.Bottom)
 // HX-Reswap: beforeend scroll:bottom
 
 htmx.SwapAfterEnd.IgnoreTitle(true)
-// HX-Reswap: beforeend ignoreTitle:true
+// HX-Reswap: afterend ignoreTitle:true
 
 htmx.SwapAfterEnd.FocusScroll(true)
-// HX-Reswap: beforeend ignoreTitle:true
+// HX-Reswap: afterend ignoreTitle:true
 
 htmx.SwapInnerHTML.ShowOn("#another-div", htmx.Top)
 // HX-Reswap: innerHTML show:#another-div:top
