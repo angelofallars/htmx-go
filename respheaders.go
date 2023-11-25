@@ -24,7 +24,7 @@ func (r *Response) setStatusCode(statusCode int) {
 // Location allows you to do a client-side redirect that does not do a full page reload.
 //
 // If you want to redirect to a specific target on the page rather than the default of document.body,
-// you can use response.LocationWithContext().
+// you can use [htmx.Response.LocationWithContext].
 //
 // Sets the 'HX-Location' header.
 //
@@ -34,7 +34,7 @@ func (r Response) Location(path string) Response {
 	return r
 }
 
-// A context object that is used by htmx.response.LocationWithContext()
+// A context object that is used by [htmx.Response.LocationWithContext]
 // to finely determine the behavior of client-side redirection.
 //
 // In the browser, these are the parameters that will be used by 'htmx.ajax()'.
@@ -77,7 +77,7 @@ type locationContext struct {
 // LocationWithContext allows you to do a client-side redirect that does not do a full page reload,
 // redirecting to a specific target on the page with the given context.
 //
-// For simple redirects, you can just use response.Location().
+// For simple redirects, you can just use [htmx.Response.Location].
 //
 // Sets the 'HX-Location' header.
 //
@@ -111,7 +111,7 @@ func (r Response) LocationWithContext(path string, ctx LocationContext) Response
 
 // PushURL pushes a new URL into the browser location history.
 //
-// Sets the same header as Response.PreventPushURL(), overwriting previous set headers.
+// Sets the same header as [htmx.Response.PreventPushURL], overwriting previous set headers.
 //
 // Sets the 'HX-Push-Url' header.
 //
@@ -123,7 +123,7 @@ func (r Response) PushURL(url string) Response {
 
 // PreventPushURL prevents the browser’s history from being updated.
 //
-// Sets the same header as Response.PushURL(), overwriting previous set headers.
+// Sets the same header as [htmx.Response.PushURL], overwriting previous set headers.
 //
 // Sets the 'HX-Push-Url' header.
 //
@@ -155,7 +155,7 @@ func (r Response) Refresh(shouldRefresh bool) Response {
 
 // ReplaceURL replaces the current URL in the browser location history.
 //
-// Sets the same header as Response.PreventReplaceURL(), overwriting previous set headers.
+// Sets the same header as [htmx.Response.PreventReplaceURL], overwriting previous set headers.
 //
 // Sets the 'HX-Replace-Url' header.
 //
@@ -167,7 +167,7 @@ func (r Response) ReplaceURL(url string) Response {
 
 // PreventReplaceURL prevents the browser’s current URL from being updated.
 //
-// Sets the same header as Response.ReplaceURL(), overwriting previous set headers.
+// Sets the same header as [htmx.Response.ReplaceURL], overwriting previous set headers.
 //
 // Sets the 'HX-Replace-Url' header to 'false'.
 //
