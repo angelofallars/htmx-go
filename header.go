@@ -1,7 +1,7 @@
 // Package htmx provides utilities to build HTMX-powered web applications.
 package htmx
 
-// Request headers
+// HTTP request headers
 const (
 	// Request header that is "true" if the request was made from an element using 'hx-boost'.
 	HeaderBoosted = "HX-Boosted"
@@ -19,19 +19,15 @@ const (
 	HeaderTriggerName = "Hx-Trigger-Name"
 )
 
-// Common headers
+// Common HTTP headers
 const (
-	// As a request header:
+	// As a request header: The ID of the triggered element if it exists.
 	//
-	//    The ID of the triggered element if it exists.
-	//
-	// As a response header:
-	//
-	//    Allows you to trigger client-side events.
+	// As a response header: Allows you to trigger client-side events.
 	HeaderTrigger = "HX-Trigger"
 )
 
-// Response headers
+// HTTP response headers
 const (
 	// Response header that allows you to do a client-side redirect that does not do a full page reload.
 	HeaderLocation = "HX-Location"
@@ -45,9 +41,12 @@ const (
 	HeaderReplaceUrl = "HX-Replace-Url"
 	// Response header that allows you to specify how the response will be swapped.
 	HeaderReswap = "HX-Reswap"
-	// Response header that uses a CSS selector that updates the target of the content update to a different element on the page.
+	// Response header that uses a CSS selector that updates the target of the content update to a
+	// different element on the page.
 	HeaderRetarget = "HX-Retarget"
-	// Response header that uses a CSS selector that allows you to choose which part of the response is used to be swapped in. Overrides an existing hx-select on the triggering element.
+	// Response header that uses a CSS selector that allows you to choose which
+	// part of the response is used to be swapped in. Overrides an existing hx-select
+	// on the triggering element.
 	HeaderReselect = "HX-Reselect"
 	// Response header that allows you to trigger client-side events after the settle step.
 	HeaderTriggerAfterSettle = "HX-Trigger-After-Settle"
@@ -55,7 +54,7 @@ const (
 	HeaderTriggerAfterSwap = "HX-Trigger-After-Swap"
 )
 
-// **286 Stop Polling**
+// 286 Stop Polling
 //
 // HTTP status code that tells HTMX to stop polling from a server response.
 //
