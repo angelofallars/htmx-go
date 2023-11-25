@@ -177,7 +177,7 @@ func (r Response) PreventReplaceURL() Response {
 	return r
 }
 
-// Reswap allows you to specify how the response will be swapped. Accepts 'htmx.Swap*' values from this library.
+// Reswap allows you to specify how the response will be swapped. Accepts [htmx.SwapStrategy] values.
 //
 // Sets the 'HX-Reswap' header.
 //
