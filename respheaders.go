@@ -192,8 +192,8 @@ func (r Response) Reswap(s swapper) Response {
 // Sets the 'HX-Retarget' header.
 //
 // For more info, see https://htmx.org/attributes/hx-target/
-func (r Response) Retarget(selector string) Response {
-	r.headers[HeaderRetarget] = selector
+func (r Response) Retarget(cssSelector string) Response {
+	r.headers[HeaderRetarget] = cssSelector
 	return r
 }
 
@@ -203,8 +203,8 @@ func (r Response) Retarget(selector string) Response {
 // Sets the 'HX-Reselect' header.
 //
 // For more info, see https://htmx.org/attributes/hx-select/
-func (r Response) Reselect(selector string) Response {
-	r.headers[HeaderReselect] = selector
+func (r Response) Reselect(cssSelector string) Response {
+	r.headers[HeaderReselect] = cssSelector
 	return r
 }
 
