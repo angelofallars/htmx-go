@@ -183,7 +183,7 @@ func (r Response) PreventReplaceURL() Response {
 //
 // For more info, see https://htmx.org/attributes/hx-swap/
 func (r Response) Reswap(s swapper) Response {
-	r.headers[HeaderReswap] = s.swap()
+	r.headers[HeaderReswap] = s.swapString()
 	return r
 }
 

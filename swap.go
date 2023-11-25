@@ -3,13 +3,13 @@ package htmx
 type (
 	// Interface to define valid 'hx-swap' values.
 	swapper interface {
-		swap() string
+		swapString() string
 	}
 	// `hx-swap` value to determine the strategy of swapping.
 	swapStrategy string
 )
 
-func (s swapStrategy) swap() string {
+func (s swapStrategy) swapString() string {
 	return string(s)
 }
 
