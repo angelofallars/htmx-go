@@ -122,9 +122,9 @@ object. Recommended to pass in either `map[string]string` or structs with JSON f
 
 Set trigger headers using the triggers above:
 
-- `Response.AddTrigger(trigger ..EventTrigger)` - appends to the `HX-Trigger` header
-- `Response.AddTriggerAfterSettle(trigger ..EventTrigger)` - appends to the `HX-Trigger-After-Settle` header
-- `Response.AddTriggerAfterSwap(trigger ..EventTrigger)` - appends to the `HX-Trigger-After-Swap` header
+- `Response.AddTrigger(trigger ...EventTrigger)` - appends to the `HX-Trigger` header
+- `Response.AddTriggerAfterSettle(trigger ...EventTrigger)` - appends to the `HX-Trigger-After-Settle` header
+- `Response.AddTriggerAfterSwap(trigger ...EventTrigger)` - appends to the `HX-Trigger-After-Swap` header
 
 ```go
 
