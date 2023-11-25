@@ -4,12 +4,18 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"time"
 
 	"github.com/angelofallars/htmx-go"
 )
 
 func main() {
+	fmt.Println(htmx.SwapBeforeEnd.
+		Scroll(htmx.Bottom).
+		SettleAfter(time.Millisecond * 500),
+	)
 	r := htmx.NewResponse().
+		Reswap(htmx.SwapAfterBegin.Scroll(htmx.Top)).
 		AddTrigger(
 			htmx.TriggerObject("hello", "world"),
 			htmx.TriggerObject("myEvent", map[string]string{
