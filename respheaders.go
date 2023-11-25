@@ -50,7 +50,7 @@ type LocationContext struct {
 	// The target to swap the response into.
 	Target string
 	// How the response will be swapped in relative to the target.
-	Swap swapper
+	Swap SwapStrategy
 	// Values to submit with the request.
 	Values map[string]string
 	// Headers to submit with the request
@@ -177,12 +177,12 @@ func (r Response) PreventReplaceURL() Response {
 	return r
 }
 
-// Reswap allows you to specify how the response will be swapped. Accepts [htmx.SwapStrategy] values.
+// Reswap allows you to specify how the response will be swapped.
 //
 // Sets the 'HX-Reswap' header.
 //
 // For more info, see https://htmx.org/attributes/hx-swap/
-func (r Response) Reswap(s swapper) Response {
+func (r Response) Reswap(s SwapStrategy) Response {
 	r.headers[HeaderReswap] = s.swapString()
 	return r
 }
