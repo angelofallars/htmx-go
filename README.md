@@ -1,12 +1,12 @@
-<img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
+# <img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
 
 [![GoDoc](https://pkg.go.dev/badge/github.com/angelofallars/htmx-go?status.svg)](https://pkg.go.dev/github.com/angelofallars/htmx-go?tab=doc)
 [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/angelofallars/htmx-go/go.yml?cacheSeconds=30)](https://github.com/angelofallars/htmx-go/actions)
-[![Discord](https://img.shields.io/discord/725789699527933952)](https://htmx.org/discord)
 [![License](https://img.shields.io/github/license/angelofallars/htmx-go)](./LICENSE)
 [![Stars](https://img.shields.io/github/stars/angelofallars/htmx-go)](https://github.com/angelofallars/htmx-go/stargazers)
+[![Discord](https://img.shields.io/discord/725789699527933952?label=htmx%20discord)](https://htmx.org/discord)
 
-A **type-safe** library for working with [HTMX](https://htmx.org/) in Go.
+htmx-go is a **type-safe** library for working with [HTMX](https://htmx.org/) in Go.
 
 Less time fiddling with HTTP
 headers, more time developing awesome Hypermedia-driven applications.
