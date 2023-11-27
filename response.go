@@ -53,7 +53,7 @@ func (r Response) Clone() Response {
 
 // Write applies the defined HTMX headers to a given response writer.
 func (r Response) Write(w http.ResponseWriter) error {
-	if r.locationWithContextErr != nil {
+	if len(r.locationWithContextErr) > 0 {
 		return errors.Join(r.locationWithContextErr...)
 	}
 
