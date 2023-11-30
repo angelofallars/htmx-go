@@ -37,6 +37,8 @@ func(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
+> Think this project is awesome? [Consider sponsoring me](https://github.com/sponsors/angelofallars) 💙
+
 ## Installation
 
 Use go get.
