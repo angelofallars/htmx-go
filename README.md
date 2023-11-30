@@ -301,6 +301,8 @@ With the Echo web framework, try passing in `context.Request()` and
 With the Gin web framework on the other hand, try using `context.Request` and
 `context.Writer`.
 
+If you use Fiber, it is recommended to use [`htmx-fiber`](https://github.com/sopa0/htmx-fiber) instead, which is a fork of htmx-go.
+
 ## Additional resources
 
 - [HTMX - HTTP Header Reference](https://htmx.org/reference/#headers)
