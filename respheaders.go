@@ -5,8 +5,10 @@ import (
 	"strings"
 )
 
-const trueString = "true"
-const falseString = "false"
+const (
+	trueString  = "true"
+	falseString = "false"
+)
 
 // StatusCode sets the HTTP response header of this response.
 //
@@ -320,7 +322,6 @@ func triggersToString(triggers []EventTrigger) (string, error) {
 		}
 
 		bytes, err := json.Marshal(detailEvents)
-
 		if err != nil {
 			return "", err
 		}
