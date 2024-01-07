@@ -1,4 +1,4 @@
-# <img src="https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14" width="400px">
+# <img src="<https://github.com/angelofallars/htmx-go/assets/39676098/c1a14954-27fd-4276-8948-0800e5372b14>" width="400px">
 
 [![GoDoc](https://pkg.go.dev/badge/github.com/angelofallars/htmx-go?status.svg)](https://pkg.go.dev/github.com/angelofallars/htmx-go?tab=doc)
 [![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/angelofallars/htmx-go/go.yml?cacheSeconds=30)](https://github.com/angelofallars/htmx-go/actions)
@@ -6,14 +6,17 @@
 [![Stars](https://img.shields.io/github/stars/angelofallars/htmx-go)](https://github.com/angelofallars/htmx-go/stargazers)
 [![Discord](https://img.shields.io/discord/725789699527933952?label=htmx%20discord)](https://htmx.org/discord)
 
-htmx-go is a **type-safe** library for working with [HTMX](https://htmx.org/) in Go.
+htmx-go is a **type-safe** library for working
+with [HTMX](https://htmx.org/) in Go.
 
 Less time fiddling with HTTP
 headers, more time developing awesome Hypermedia-driven applications.
 
-Easily check if requests are from HTMX, and utilize a type-safe, declarative syntax for HTMX response headers to control HTMX behavior from the server.
+Check if requests are from HTMX, and use a type-safe, declarative
+syntax for HTMX response headers to control HTMX behavior from the server.
 
-Write [triggers](#triggers) without dealing with JSON formatting. Define trigger behavior, and htmx-go handles the rest.
+Write [triggers](#triggers) without dealing with JSON formatting.
+Define trigger behavior, and htmx-go handles the rest.
 
 Use [Swap Strategy](#swap-strategy) methods to fine-tune `hx-swap` behavior.
 
@@ -22,11 +25,12 @@ Has basic [integration](#templ-integration) with [templ](https://templ.guide/) c
 
 ```go
 import (
-  "net/http"
-  "github.com/angelofallars/htmx-go"
+	"net/http"
+
+	"github.com/angelofallars/htmx-go"
 )
 
-func(w http.ResponseWriter, r *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	if htmx.IsHTMX(r) {
 		htmx.NewResponse().
 			Reswap(htmx.SwapBeforeEnd).
@@ -53,16 +57,19 @@ Then import htmx-go:
 import "github.com/angelofallars/htmx-go"
 ```
 
-## HTMX requests
+## HTMX Requests
 
 ### Check request origin
 
-You can determine if a request is from HTMX. With this, you can add custom handling for non-HTMX requests.
+You can determine if a request is from HTMX.
+With this, you can add custom handling for non-HTMX requests.
 
-You can also use this for checking if this is a GET request for the initial (very first) page loads on your website, as initial page load requests don't use HTMX.
+You can also use this for checking if this is a GET request for the initial
+page load on your website, as initial page load requests
+don't use HTMX.
 
 ```go
-func(w http.ResponseWriter, r *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	if htmx.IsHTMX(r) {
 		// logic for handling HTMX requests
 	} else {
@@ -74,7 +81,7 @@ func(w http.ResponseWriter, r *http.Request) {
 ### Check if request is Boosted (`hx-boost`)
 
 ```go
-func(w http.ResponseWriter, r *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	if htmx.IsBoosted(r) {
 		// logic for handling boosted requests
 	} else {
@@ -85,23 +92,25 @@ func(w http.ResponseWriter, r *http.Request) {
 
 ## HTMX responses
 
-htmx-go takes inspiration from [Lip Gloss](https://github.com/charmbracelet/lipgloss) for a
-declarative way of specifying HTMX response headers.
+htmx-go takes inspiration from [Lip Gloss](https://github.com/charmbracelet/lipgloss)
+for a declarative way of specifying HTMX response headers.
 
 ### Basic usage
 
-Make a response writer with `htmx.NewResponse()`, and add a header to it to make the page refresh:
+Make a response writer with `htmx.NewResponse()`, and add a
+header to it to make the page refresh:
 
 ``` go
-func(w http.ResponseWriter, r *http.Request) {
- 	writer := htmx.NewResponse().Refresh(true)
- 	writer.Write(w)
+func handler(w http.ResponseWriter, r *http.Request) {
+	writer := htmx.NewResponse().Refresh(true)
+	writer.Write(w)
 }
 ```
 
 ### Retarget response to a different element
+
 ```go
-func(w http.ResponseWriter, r *http.Request) {
+func handler(w http.ResponseWriter, r *http.Request) {
 	htmx.NewResponse().
 		// Override 'hx-target' to specify which target to load into
 		Retarget("#errors").
@@ -113,8 +122,8 @@ func(w http.ResponseWriter, r *http.Request) {
 
 ### Triggers
 
-You can add triggers and let htmx-go take care of formatting and JSON serialization of the header
-values.
+You can add triggers and let htmx-go take care of formatting
+and JSON serialization of the header values.
 
 Define event triggers:
 
@@ -123,7 +132,7 @@ Define event triggers:
 - `htmx.TriggerObject(eventName string, detailObject any)` - A trigger with a JSON-serializable detail
 object. Recommended to pass in either `map[string]string` or structs with JSON field tags.
 
-Set trigger headers using the triggers above:
+Set trigger headers using the preceding triggers:
 
 - `Response.AddTrigger(trigger ...EventTrigger)` - appends to the `HX-Trigger` header
 - `Response.AddTriggerAfterSettle(trigger ...EventTrigger)` - appends to the `HX-Trigger-After-Settle` header
@@ -141,18 +150,18 @@ htmx.NewResponse().
 
 htmx.NewResponse().
 	AddTrigger(
-			htmx.TriggerDetail("hello", "world"),
-			htmx.TriggerObject("myEvent", map[string]string{
-				"level":   "info",
-				"message": "Here Is A Message",
-			}),
-  )
+		htmx.TriggerDetail("hello", "world"),
+		htmx.TriggerObject("myEvent", map[string]string{
+			"level":   "info",
+			"message": "Here Is A Message",
+		}),
+	)
 // HX-Trigger: {"hello":"world","myEvent":{"level":"info","message":"Here is a Message"}}
 ```
 
-### Swap Strategy
+### Swap strategy
 
-`Response.Reswap()` takes in `SwapStrategy` values from this library. 
+`Response.Reswap()` takes in `SwapStrategy` values from this library.
 
 ```go
 htmx.NewResponse().
@@ -202,7 +211,7 @@ htmx.SwapDefault.ShowNone()
 ### Code organization
 
 HTMX response writers can be declared outside of functions with `var` so you can reuse them in several
-places. 
+places.
 
 > [!CAUTION]
 > If you're adding additional headers to a global response writer, always use the `.Clone()` method
@@ -221,9 +230,9 @@ func(w http.ResponseWriter, r *http.Request) {
 
 ### Templ integration
 
-HTMX pairs well with [Templ](https://templ.guide), and this library is no exception. You can render
-both the necessary HTMX response headers and Templ components in one step with the
-`.RenderTempl()` method.
+HTMX pairs well with [Templ](https://templ.guide), and this library is no exception.
+You can render both the necessary HTMX response headers and Templ components in
+one step with the `.RenderTempl()` method.
 
 ```go
 // hello.templ
@@ -241,7 +250,7 @@ func(w http.ResponseWriter, r *http.Request) {
 
 > [!NOTE]
 > To avoid issues with custom HTTP status code headers with this approach,
-> it is recommended to use `Response().StatusCode()` so the status code header
+> it's recommended to use `Response().StatusCode()` so the status code header
 > is always set after the HTMX headers.
 
 ### Stop polling
@@ -256,7 +265,7 @@ w.WriteHeader(htmx.StatusStopPolling)
 
 ## Header names
 
-If you need to work with HTMX headers directly, htmx-go provides constant values for all 
+If you need to work with HTMX headers directly, htmx-go provides constant values for all
 HTTP header field names of HTMX so you don't have to write them yourself. This mitigates the risk of writing
 header names with typos.
 
