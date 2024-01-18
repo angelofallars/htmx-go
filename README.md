@@ -16,7 +16,7 @@ Check if requests are from HTMX, and use a type-safe, declarative
 syntax for HTMX response headers to control HTMX behavior from the server.
 
 Write [triggers](#triggers) without dealing with JSON formatting.
-Define trigger behavior, and htmx-go handles the rest.
+Define trigger behavior, and htmx-go handles the rest. By using triggers to trigger client-side events, **event-driven** applications are easier to develop.
 
 Use [Swap Strategy](#swap-strategy) methods to fine-tune `hx-swap` behavior.
 
@@ -34,8 +34,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	if htmx.IsHTMX(r) {
 		htmx.NewResponse().
 			Reswap(htmx.SwapBeforeEnd).
-			Retarget("#errors").
-			ReplaceURL("/errors").
+			Retarget("#contacts").
+			AddTrigger(htmx.Trigger("enable-submit")).
+			AddTrigger(htmx.TriggerDetail("display-message", "Hello world!")
 			Write(w)
 	}
 }
@@ -122,7 +123,9 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 ### Triggers
 
-You can add triggers and let htmx-go take care of formatting
+[HTMX Reference: `hx-trigger`](https://htmx.org/headers/hx-trigger/)
+
+You can add triggers to trigger client-side [events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) and let htmx-go take care of formatting
 and JSON serialization of the header values.
 
 Define event triggers:
@@ -160,6 +163,8 @@ htmx.NewResponse().
 ```
 
 ### Swap strategy
+
+[HTMX Reference: `hx-swap`](https://htmx.org/attributes/hx-swap/)
 
 `Response.Reswap()` takes in `SwapStrategy` values from this library.
 
@@ -205,8 +210,6 @@ htmx.SwapBeforeBegin.ShowWindow(htmx.Top)
 htmx.SwapDefault.ShowNone()
 // HX-Reswap: show:none
 ```
-
-[HTMX Reference: `hx-swap`](https://htmx.org/attributes/hx-swap/)
 
 ### Code organization
 
