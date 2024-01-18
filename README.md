@@ -15,8 +15,7 @@ headers, more time developing awesome Hypermedia-driven applications.
 Check if requests are from HTMX, and use a type-safe, declarative
 syntax for HTMX response headers to control HTMX behavior from the server.
 
-Write [triggers](#triggers) without dealing with JSON formatting.
-Define trigger behavior, and htmx-go handles the rest. By using triggers to trigger client-side events, **event-driven** applications are easier to develop.
+Write [triggers](#triggers) for client-side events effectively without dealing with JSON serialization. With this approach, **event-driven** applications are easier to develop.
 
 Use [Swap Strategy](#swap-strategy) methods to fine-tune `hx-swap` behavior.
 
@@ -125,7 +124,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 
 [HTMX Reference: `hx-trigger`](https://htmx.org/headers/hx-trigger/)
 
-You can add triggers to trigger client-side [events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events) and let htmx-go take care of formatting
+You can add triggers to trigger client-side [events](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Events). htmx-go takes care of formatting
 and JSON serialization of the header values.
 
 Define event triggers:
@@ -142,7 +141,6 @@ Set trigger headers using the preceding triggers:
 - `Response.AddTriggerAfterSwap(trigger ...EventTrigger)` - appends to the `HX-Trigger-After-Swap` header
 
 ```go
-
 htmx.NewResponse().
 	AddTrigger(htmx.Trigger("myEvent"))
 // HX-Trigger: myEvent
@@ -161,6 +159,16 @@ htmx.NewResponse().
 	)
 // HX-Trigger: {"hello":"world","myEvent":{"level":"info","message":"Here is a Message"}}
 ```
+
+> [!TIP]
+> [Alpine.js](https://alpinejs.dev/) and [Hyperscript](https://hyperscript.org) can listen to
+> and receive details from events triggered by htmx-go. This makes triggers initiated by the server
+> very handy for event-driven applications!
+>
+> For Alpine.js, you can register an `x-on:<EventName>.window` listener. The `.window` modifier
+> is important because HTMX dispatches events from the root `window` object.
+> To receive values sent by `htmx.TriggerDetail` and `htmx.TriggerObject`,
+> you can use `$event.detail.value`.
 
 ### Swap strategy
 
