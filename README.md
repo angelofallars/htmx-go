@@ -35,7 +35,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			Reswap(htmx.SwapBeforeEnd).
 			Retarget("#contacts").
 			AddTrigger(htmx.Trigger("enable-submit")).
-			AddTrigger(htmx.TriggerDetail("display-message", "Hello world!")
+			AddTrigger(htmx.TriggerDetail("display-message", "Hello world!")).
 			Write(w)
 	}
 }
