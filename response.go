@@ -76,6 +76,16 @@ func (r Response) Write(w http.ResponseWriter) error {
 	return nil
 }
 
+// RenderHTML renders an HTML document fragment along with the defined HTMX headers.
+func (r Response) RenderHTML(w http.ResponseWriter, html template.HTML) (int, error) {
+	err := r.Write(w)
+	if err != nil {
+		return 0, err
+	}
+
+	return w.Write([]byte(html))
+}
+
 // RenderTempl renders a Templ component along with the defined HTMX headers.
 func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c templComponent) error {
 	err := r.Write(w)
