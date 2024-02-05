@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"html/template"
 	"net/http"
 )
 
@@ -100,6 +101,37 @@ func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c temp
 
 	return nil
 }
+
+// MustWrite applies the defined HTMX headers to a given response writer, otherwise it panics.
+//
+// Under the hood this uses [Response.Write].
+func (r Response) MustWrite(w http.ResponseWriter) {
+	err := r.Write(w)
+	if err != nil {
+		panic(err)
+	}
+}
+
+// MustRenderHTML renders an HTML document fragment along with the defined HTMX headers, otherwise it panics.
+//
+// Under the hood this uses [Response.RenderHTML].
+func (r Response) MustRenderHTML(w http.ResponseWriter, html template.HTML) {
+	_, err := r.RenderHTML(w, html)
+	if err != nil {
+		panic(err)
+	}
+}
+
+// MustRenderTempl renders a Templ component along with the defined HTMX headers, otherwise it panics.
+//
+// Under the hood this uses [Response.RenderTempl].
+func (r Response) MustRenderTempl(ctx context.Context, w http.ResponseWriter, c templComponent) {
+	err := r.RenderTempl(ctx, w, c)
+	if err != nil {
+		panic(err)
+	}
+}
+
 // Headers returns a copied map of the headers. Any modifications to the
 // returned headers will not affect the headers in this struct.
 func (r Response) Headers() (map[string]string, error) {
@@ -135,4 +167,3 @@ func (r Response) Headers() (map[string]string, error) {
 
 	return m, nil
 }
-
