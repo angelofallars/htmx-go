@@ -76,6 +76,20 @@ func (r Response) Write(w http.ResponseWriter) error {
 	return nil
 }
 
+// RenderTempl renders a Templ component along with the defined HTMX headers.
+func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c templComponent) error {
+	err := r.Write(w)
+	if err != nil {
+		return err
+	}
+
+	err = c.Render(ctx, w)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 // Headers returns a copied map of the headers. Any modifications to the
 // returned headers will not affect the headers in this struct.
 func (r Response) Headers() (map[string]string, error) {
@@ -112,17 +126,3 @@ func (r Response) Headers() (map[string]string, error) {
 	return m, nil
 }
 
-// RenderTempl renders a Templ component along with the defined HTMX headers.
-func (r Response) RenderTempl(ctx context.Context, w http.ResponseWriter, c templComponent) error {
-	err := r.Write(w)
-	if err != nil {
-		return err
-	}
-
-	err = c.Render(ctx, w)
-	if err != nil {
-		return err
-	}
-
-	return nil
-}
