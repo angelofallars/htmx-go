@@ -12,7 +12,7 @@ const (
 	// Request header for the user response to an hx-prompt.
 	HeaderPrompt = "HX-Prompt"
 	// Request header that is always “true” for HTMX requests.
-	HeaderRequest = "Hx-Request"
+	HeaderRequest = "HX-Request"
 	// Request header of the id of the target element if it exists.
 	HeaderTarget = "HX-Target"
 	// Request header of the name of the triggered element if it exists.
