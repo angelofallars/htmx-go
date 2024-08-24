@@ -287,7 +287,7 @@ const (
 	HeaderCurrentURL            = "HX-Current-URL"
 	HeaderHistoryRestoreRequest = "HX-History-Restore-Request"
 	HeaderPrompt                = "HX-Prompt"
-	HeaderRequest               = "Hx-Request"
+	HeaderRequest               = "HX-Request"
 	HeaderTarget                = "HX-Target"
 	HeaderTriggerName           = "Hx-Trigger-Name"
 )
